@@ -114,14 +114,6 @@ function DisplayMovies(props) {
   });
 
 
-
-
- 
-
-
-
-
-
   function Subgenre(props){
     let newVariable = Object.keys(myMoviesObject).includes(props.genreName) ? myMoviesObject[props.genreName] : null;
     let categoryTitle = props.genreName.replace('_', " ");
@@ -138,59 +130,10 @@ function DisplayMovies(props) {
                        if (index >= props.displayedMovies && index < props.displayedMovies + 5) {
                          return (
                             <>
-                            {/* <MoviePopover props={movie.title}/> */}
-                                {/* <OverlayTrigger
-                                  key={movie.id}
-                                  placement={'bottom'}
-                                  overlay={
-                                    <Tooltip id={`tooltip-${movie.id}`}>
-                                      Tooltip on <strong>{movie.title}</strong>.
-                                    </Tooltip>
-                                  }
-                                >
-                                  <div className='my-movies'>
-                                  <Button >              <div className='my-movies' key={movie.id}>
-                                      <img
-                                        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                                        alt={movie.title}
-                                      />
-                                    </div></Button></div>
-                                </OverlayTrigger> */}
-
-
-                                    <OverlayTrigger
-                                      // trigger="click"
-                                      key={movie.title}
-                                      placement={'bottom'}
-                                      overlay={
-                                        <Popover id={`popover-positioned-${movie.title}`}>
-                                          <Popover.Header as="h3">{`${movie.title}`}</Popover.Header>
-                                          <Popover.Body>
-                                            <strong>{movie.overview}</strong><br></br>
-                                             released: {movie.release_date} rating: { movie.vote_average}
-                                          </Popover.Body>
-                                        </Popover>
-                                      }
-                                    >
-                                      {/* <div className='my-movies' key={movie.id}> */}
-                                      <Button className='my-movies'key={movie.id}>
-                                                    <img
-                                                      src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                                                      alt={movie.title}
-                                                    />
-                                                  </Button>
-                                                  {/* </div> */}
-                                    </OverlayTrigger>
-
+                            <div className='my-movies' key={movie.id}>
+                            <MoviePopover props={movie} key={movie.id} moviePoster={movie.poster_path}/>        
+                            </div>
                             </>
-
-
-                          //  <div className='my-movies' key={movie.id}>
-                          //    <img
-                          //      src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                          //      alt={movie.title}
-                          //    />
-                          //  </div>
                          );
                        }
                        return null;
@@ -208,7 +151,6 @@ function DisplayMovies(props) {
      } catch (error) {
      }
    }
-  
 
     return (
       <>

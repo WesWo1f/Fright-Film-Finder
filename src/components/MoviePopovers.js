@@ -1,23 +1,29 @@
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
+import Popover from 'react-bootstrap/Popover';
 
-function TriggerExample(movie) {
-  const renderTooltip = (props) => (
-    <Tooltip id="button-tooltip" {...props}>
-     {movie.props}
-    </Tooltip>
+function MoviePopover(movie) {
+  const popover = (
+    <Popover id="popover-basic">
+      <Popover.Header as="h3">{movie.props.title}</Popover.Header>
+      <Popover.Body>
+        <strong>{movie.props.overview}</strong><br></br>
+        released: {movie.props.release_date} rating: { movie.props.vote_average}
+      </Popover.Body>
+    </Popover>
   );
-
+  
   return (
-    <OverlayTrigger
-      placement="bottom"
-      delay={{ show: 250, hide: 400 }}
-      overlay={renderTooltip}
-    >
-      <Button variant="success">Hover me to see</Button>
+    <>
+    <OverlayTrigger trigger="click"  placement="bottom" overlay={popover}>
+      <Button key={movie.id} >   <img
+          src={`https://image.tmdb.org/t/p/w500${movie.moviePoster}`}
+          alt={movie.title}/></Button>
     </OverlayTrigger>
+    </>
   );
 }
 
-export default TriggerExample;
+export default MoviePopover;
+
+
