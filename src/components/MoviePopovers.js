@@ -3,7 +3,6 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 
 function TriggerExample(movie) {
-    // console.log(movie.props)
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
      {movie.props}
