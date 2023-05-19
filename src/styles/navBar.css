@@ -1,0 +1,36 @@
+
+.navbar-brand {
+    font-size: 30px !important;
+    font-weight: bold;
+    color: rgb(213, 213, 213) !important;
+}
+.navbar form{
+    display: flex;
+    align-items: center;
+}
+.navbar{
+    background-color: #660000;
+}
+
+.dropdown-toggle nav-link{
+    font-size: 25px;
+    font-weight: bold;
+    color: #C0C0C0;
+}
+#genre-dropdown{
+    font-size: 20px;
+    font-weight: bold;
+    color: #C0C0C0;
+}
+#decade-dropdown{
+    font-size: 20px;
+    font-weight: bold;
+    color: #C0C0C0;
+}
+.seleted-decade {
+    font-size: 20px;
+    font-weight: bold;
+    color: #C0C0C0;
+    padding: 10px 20px;
+    border-radius: 5px;
+}

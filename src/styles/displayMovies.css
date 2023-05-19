@@ -1,0 +1,71 @@
+
+.body{
+  background-color: #000000;
+}
+.category{
+  display: flex;
+  font-size: 45px;
+  justify-content: center;
+  color: whitesmoke;
+}
+
+.my-container{
+  display: flex;
+  overflow-x: hidden; 
+  align-items: center;  
+}
+
+.my-movies{
+  padding: 10px;
+}
+
+button.my-movies{
+  border: none;
+  background-color: #000000 ;
+}
+
+button.my-movies:hover {
+  color: #ff0000;
+  background-color: red;
+}
+
+.my-movies img{
+  width: 100%
+}
+
+
+
+.btn-left {
+  position: relative;
+  left: -10px;
+  cursor: pointer;
+  transform: rotate(0deg);
+  background-color: #000000;
+  border-top: 40px solid transparent;
+  border-bottom: 40px solid transparent;
+  border-right: 20px solid #ff0000;
+}
+
+.btn-right {
+  position: relative;
+  right: -10px;
+  cursor: pointer;
+  transform: rotate(180deg);
+  background-color: #000000;
+  border-top: 40px solid transparent;
+  border-bottom: 40px solid transparent;
+  border-right: 20px solid #ff0000;
+}
+
+/*
+#000000 (Black): The color of darkness and mystery.
+#FF0000 (Red): Symbolizes blood, danger, and intensity.
+#800000 (Maroon): A deep, dark red, reminiscent of dried blood.
+#660000 (Dark Red): A darker shade of red, invoking a sense of foreboding.
+#A52A2A (Brown): An earthy tone, often associated with decay and aging.
+#4B0082 (Indigo): A deep, rich purple that adds an air of mystique.
+#993333 (Dark Sienna): A dark, rusty brown that suggests decay and desolation.
+#333333 (Charcoal): A dark gray, lending a touch of gloom to the palette.
+#800080 (Purple): A deep, vibrant shade associated with supernatural elements.
+#C0C0C0 (Silver): A cool gray tone that adds a touch of eeriness.
+*/
