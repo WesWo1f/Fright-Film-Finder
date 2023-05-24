@@ -15,8 +15,13 @@ function MoviePopover(movie) {
   
   return (
     <>
-    <OverlayTrigger trigger="click"  placement="bottom" overlay={popover}>
+    {/* <OverlayTrigger trigger="click"  placement="bottom" overlay={popover}>
       <Button key={movie.id} >   <img
+          src={`https://image.tmdb.org/t/p/w500${movie.moviePoster}`}
+          alt={movie.title}/></Button>
+    </OverlayTrigger> */}
+    <OverlayTrigger trigger="click"  placement="bottom" overlay={popover}>
+      <Button>   <img
           src={`https://image.tmdb.org/t/p/w500${movie.moviePoster}`}
           alt={movie.title}/></Button>
     </OverlayTrigger>
