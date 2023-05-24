@@ -32,6 +32,9 @@ button.my-movies:hover {
 .my-movies img{
   width: 100%
 }
+.my-movies li{
+  list-style: none;
+}
 
 
 
