@@ -111,48 +111,5 @@ export default NavBar;
 
 
 
-   // <Navbar className='color-nav'>
-    //   <Container className="my-container">
-    //     <Navbar.Brand href="#home">Movie Finder</Navbar.Brand>
-    //     <Navbar.Toggle aria-controls="basic-navbar-nav" /> {/* Add the closing tag here */}
-    //     <Navbar.Collapse className='search-box' id="basic-navbar-nav">
-    //       <form onSubmit={handleSearchSubmit}>
-    //         <input
-    //           type="text"
-    //           placeholder="Search..."
-    //           value={searchQuery}
-    //           onChange={handleSearchInputChange}
-    //         />
-    //         <button type="submit" onClick={handleButtonClick}>Search</button>
-    //       </form>
-    //       <Nav className="me-auto">
-    //         {/* A dropdown for genre */}
-    //           <NavDropdown title={"Genre"} id="genre-dropdown">
-    //             {genres.map((g) => (
-    //               <NavDropdown.Item
-    //                 key={g.name}
-    //                 eventKey={g.name}
-    //                 onClick={handleGenreSelect(g)}
-    //               >
-    //                 {g.name}
-    //               </NavDropdown.Item>
-    //             ))}
-    //           </NavDropdown>
-    //         {/* A dropdown for decade */}
-    //         <NavDropdown title={"Decade"} id="decade-dropdown">
-    //           {decades.map((d) => (
-    //             <NavDropdown.Item
-    //               key={d}
-    //               eventKey={d}
-    //               onClick={handleDecadeSelect(d)}
-    //             >
-    //               {d}
-    //             </NavDropdown.Item>
-    //           ))}
-    //         </NavDropdown>
-    //         <div className="seleted-decade">{props.selectedDecade}</div>
-    //       </Nav>
-    //     </Navbar.Collapse>
-    //   </Container>
-    // </Navbar>
+
 

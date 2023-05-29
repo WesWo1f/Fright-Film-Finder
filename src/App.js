@@ -1,10 +1,9 @@
 import React from 'react';
 import NavBar from './components/NavBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import MovieSearch from './components/MovieSearch';
 import { useState, useEffect } from 'react';
 import ApiCallCreator from './components/ApiCallCreator';
-import MoviePopover from './components/MoviePopovers';
+import FetchMovieData from './components/FetchMovieData';
 
 function App() {
 
@@ -51,16 +50,15 @@ function App() {
 
   return (
     <>
-    
-    <NavBar
-      searchNow={searchNow}
-      selectedGenre={selectedGenre} 
-      selectedDecade={selectedDecade} 
-      onFilterChange={handleFilterChange}
-      onSearchClick={handleSearchClick}
-    />
-      <ApiCallCreator searchObj={searchObj} apiCallProp={apiCallProp}/>
-      <MovieSearch searchObj={searchObj} finishedApiUrl={apiCall} /> 
+      <NavBar
+        searchNow={searchNow}
+        selectedGenre={selectedGenre} 
+        selectedDecade={selectedDecade} 
+        onFilterChange={handleFilterChange}
+        onSearchClick={handleSearchClick}
+      />
+        <FetchMovieData searchObj={searchObj} finishedApiUrl={apiCall}/>
+        <ApiCallCreator searchObj={searchObj} apiCallProp={apiCallProp}/>
     </>
   );
 }

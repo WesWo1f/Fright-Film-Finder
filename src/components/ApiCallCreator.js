@@ -6,7 +6,7 @@ import { useRef } from 'react'
 export default function ApiCallCreator({searchObj, apiCallProp}) {
     const [currentDecade, setcurrentDecade] = useState('All')
     const [apiCall, setApiCall] = useState([])
-    const apiKey = "55825d24c64a739bb6707335b1645b0c";
+    const apiKey ="55825d24c64a739bb6707335b1645b0c"
     let baseUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false`
 
 
@@ -32,15 +32,26 @@ export default function ApiCallCreator({searchObj, apiCallProp}) {
 
     useEffect(() => {
         setApiCall([
-            {'slasherCall': urlMaker(baseUrl, '&with_genres=27&with_keywords=12339' )},
-            {'creatureCall': urlMaker(baseUrl,'&with_genres=27&with_keywords=13031')},
-            {'vampireCall': urlMaker(baseUrl, '&with_genres=27&with_keywords=3133')},
-            {'horrorComedyCall': urlMaker(baseUrl, '&with_genres=27,35')}
+            {
+                'genreName': 'slasher',
+                'apiCall': urlMaker(baseUrl, '&with_genres=27&with_keywords=12339' )
+            },
+            {   'genreName': 'creature',
+                'apiCall': urlMaker(baseUrl,'&with_genres=27&with_keywords=13031')
+            },
+            {   'genreName': 'vampire',
+                'apiCall': urlMaker(baseUrl, '&with_genres=27&with_keywords=3133')
+            },
+            {   'genreName': 'horrorComedy',
+                'apiCall': urlMaker(baseUrl, '&with_genres=27,35')
+            }
         ]);
     },[currentDecade])
 
     useEffect(() => {
-        apiCallProp(apiCall)
+        if(apiCall.length > 1){
+            apiCallProp(apiCall)
+        }
     })
 
   return ( null )
