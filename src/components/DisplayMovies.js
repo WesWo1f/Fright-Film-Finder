@@ -3,18 +3,31 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useSwipeable } from "react-swipeable";
 import MoviePopover from './MoviePopovers'
 
-function DisplayMovies({movieObjects}) {
+function DisplayMovies({movieObjects, searchObj}) {
   const [myMoviesObject, setMyMoviesObject] = useState();
   const [displayedSlasherMovies, setDisplayedSlasherMovies] = useState(0);
   const [displayedCreatureMovies, setDisplayedCreatureMovies] = useState(0);
   const [displayedVampireMovies, setDisplayedVampireMovies] = useState(0);
   const [displayedHorrorComedyMovies, setDisplayedHorrorComedyMovies] = useState(0);
 
+  const decade = useRef()
+
   useEffect(() => {
     if(movieObjects !== undefined && movieObjects.length > 0){
       setMyMoviesObject(movieObjects)
     }
   });
+
+  
+  useEffect(() => {
+    if(searchObj.decade !== decade.current){
+      decade.current = searchObj.decade
+      setDisplayedSlasherMovies(0)
+      setDisplayedCreatureMovies(0)
+      setDisplayedVampireMovies(0)
+      setDisplayedHorrorComedyMovies(0)
+    }
+  })
 
   const handleScroll = (genre, direction) => {
     if(genre === 'slasher'){
@@ -85,8 +98,8 @@ function DisplayMovies({movieObjects}) {
 
 
     function MovieList(props) {
-     const myGenre = myMoviesObject.find(element => element.genreName === props.genreName)
-      
+      const myGenre = myMoviesObject.find(element => element.genreName === props.genreName)
+
      if(myGenre !== undefined){
         const result = props.genreName.replace(/([A-Z])/g, " $1");
         const categoryTitle = result.charAt(0).toUpperCase() + result.slice(1);
@@ -100,7 +113,7 @@ function DisplayMovies({movieObjects}) {
                     {myGenre.movieList.map(function(movie, index) {
                        if (index >= props.displayedMovies && index < props.displayedMovies + 5) {
                       return(
-                        <div className='my-movies'key={movie.id}>
+                        <div className='my-movies' style={{width: '100%'}} key={movie.id}>
                           <li key={movie.id}>
                             <MoviePopover props={movie} moviePoster={movie.poster_path} />
                           </li>
@@ -117,8 +130,9 @@ function DisplayMovies({movieObjects}) {
           </div>
         </>
       )
-     }
+    }
   }
+
   if(myMoviesObject !== undefined){
     return (
       <>

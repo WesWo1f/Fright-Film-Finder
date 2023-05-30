@@ -12,7 +12,7 @@ function MoviePopover(movie) {
       </Popover.Body>
     </Popover>
   );
-  
+
   return (
     <>
     {/* <OverlayTrigger trigger="click"  placement="bottom" overlay={popover}>
