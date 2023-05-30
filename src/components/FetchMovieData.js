@@ -8,9 +8,11 @@ export default function FetchMovieData(props) {
     const  [movieObjects, setMovieObjects] = useState([])
     const apiCall = useRef(props.finishedApiUrl);
 
+
     async function fetchMovies(subgenreUrl) {
       let url = subgenreUrl
       try {
+        console.log('fetching movieData')
          const response = await axios.get(url);
          const results = await response.data.results;
        return results
@@ -33,7 +35,7 @@ export default function FetchMovieData(props) {
 
     async function callingFetchMovies(){
       if(props.finishedApiUrl !== undefined){
-        apiCall.current.forEach(async element => {
+          apiCall.current.forEach(async element => {
           const movie = await fetchMovies(element.apiCall)
           addMovie(element.genreName, movie)
         });
@@ -51,7 +53,7 @@ export default function FetchMovieData(props) {
  
   return (
     <>
-    <DisplayMovies movieObjects={movieObjects}/>
+    <DisplayMovies movieObjects={movieObjects} searchObj={props.searchObj} />
     </>
   )
 }
