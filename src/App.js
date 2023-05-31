@@ -24,7 +24,6 @@ function App() {
       setSelectedDecade(filter.decade);
   };
   const searchNow = (test) => {
-    console.log(test)
     setStartSearch(test)
   }
 

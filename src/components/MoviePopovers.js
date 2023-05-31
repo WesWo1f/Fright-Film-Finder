@@ -5,7 +5,7 @@ import Popover from 'react-bootstrap/Popover';
 
 function MoviePopover(movie) {
   const popover = (
-    <Popover id="popover-basic"style={{ display: "flex"}}>
+    <Popover id="popover-basic">
       <Popover.Header as="h3">{movie.props.title}</Popover.Header>
       <Popover.Body>
         <strong>{movie.props.overview}</strong><br></br>
