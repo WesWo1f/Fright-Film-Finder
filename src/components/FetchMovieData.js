@@ -22,6 +22,8 @@ export default function FetchMovieData(props) {
 
     const addMovie = (subGenre, movieList) => {
       let genreExist = movieObjects.find(movies => movies.genreName === subGenre);
+      movieList = movieList.filter(movie => movie.poster_path !== null)
+      console.log(movieList)
       if(genreExist){
         setMovieObjects(prevState => prevState.map(movie => movie.genreName === subGenre ? { ...movie, movieList: movieList } : movie))
       }
