@@ -37,12 +37,14 @@ export default function FetchMovieData(props) {
     async function callingFetchMovies(){
       if(props.finishedApiUrl !== undefined){
           apiCall.current.forEach(async element => {
-          const movie = await fetchMovies(element.apiCall)
-          addMovie(element.genreName, movie)
+            if(element.apiCall === 'nothing'){
+              return
+            }
+            const movie = await fetchMovies(element.apiCall)
+            addMovie(element.genreName, movie)
         });
       } 
     }
-
 
     useEffect(() => {
       if(apiCall.current !== props.finishedApiUrl && props.finishedApiUrl !== undefined){

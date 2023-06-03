@@ -11,7 +11,6 @@ export default function ApiCallCreator({searchObj, apiCallProp}) {
 
     useEffect(() => {
         if(typeof(searchObj.decade) !== 'undefined' && searchObj.decade !== null){
-            console.log(searchObj)
             setcurrentDecade(searchObj.decade)
         }
     })
@@ -31,11 +30,20 @@ export default function ApiCallCreator({searchObj, apiCallProp}) {
     } 
 
     function apiCallObjectMaker(genreName, apiCall){
-        const obj = {
-            'genreName': genreName,
-            'apiCall': apiCall 
+        if(genreName === 'userInput' && searchObj.query === undefined){
+            const obj = {
+                'genreName': genreName,
+                'apiCall': 'nothing' 
+            }
+            return obj
         }
-        return obj
+        else {
+            const obj = {
+                'genreName': genreName,
+                'apiCall': apiCall 
+            }
+            return obj
+        }
     }
 
     useEffect(() => {

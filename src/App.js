@@ -45,6 +45,10 @@ function App() {
     setApiCall(value);
   };
 
+  // useEffect(()=>{
+  //   console.log(query)
+  // })
+
 
 
   return (
