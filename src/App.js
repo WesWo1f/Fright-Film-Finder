@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState, useEffect } from 'react';
 import ApiCallCreator from './components/ApiCallCreator';
 import FetchMovieData from './components/FetchMovieData';
+import SearchQueryDisplay from './components/SearchQueryDisplay'
 
 function App() {
 
@@ -45,11 +46,10 @@ function App() {
     setApiCall(value);
   };
 
-  // useEffect(()=>{
-  //   console.log(query)
-  // })
 
-
+  const mySearch = (value) => {
+    console.log(value)
+  };
 
   return (
     <>
@@ -57,9 +57,11 @@ function App() {
         searchNow={searchNow}
         selectedGenre={selectedGenre} 
         selectedDecade={selectedDecade} 
+        mySearch={mySearch}
         onFilterChange={handleFilterChange}
         onSearchClick={handleSearchClick}
       />
+        <SearchQueryDisplay />
         <FetchMovieData searchObj={searchObj} finishedApiUrl={apiCall}/>
         <ApiCallCreator searchObj={searchObj} apiCallProp={apiCallProp}/>
     </>

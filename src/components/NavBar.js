@@ -50,6 +50,8 @@ function NavBar(props) {
     };
 
   const handleSearchInputChange = (event) => {
+    console.log(event.target.value)
+    props.mySearch(event.target.value)
     setSearchQuery(event.target.value);
   };
 
