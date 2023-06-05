@@ -4,64 +4,44 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState, useEffect } from 'react';
 import ApiCallCreator from './components/ApiCallCreator';
 import FetchMovieData from './components/FetchMovieData';
-import SearchQueryDisplay from './components/SearchQueryDisplay'
+import SearchPopup from './components/SearchPopup'
 
 function App() {
-
-  const [query, setQuery] = useState('');
   const [searchObj, setSearchObj] = useState({})
   const [selectedGenre, setSelectedGenre] = useState(null);
   const [selectedDecade, setSelectedDecade] = useState(null);
-  const [startSearch, setStartSearch] = useState(false);
   const [apiCall, setApiCall] = useState();
 
-  const handleSearchClick = (message) => {
-    setQuery(message)
-  }
 
   const handleFilterChange = (filter) => {
     console.log(filter.decade)
       setSelectedGenre(filter.genre);
       setSelectedDecade(filter.decade);
   };
-  const searchNow = (test) => {
-    setStartSearch(test)
-  }
 
   useEffect(() => {
     if(selectedDecade === null){
       setSelectedDecade('All')
     }
     setSearchObj({
-      startSearch: startSearch,
+      startSearch: '',
       genre: selectedGenre,
       decade: selectedDecade,
-      query: query,
+      query: '',
   });
-  }, [selectedGenre, selectedDecade, query, startSearch])
-
-
+  }, [selectedGenre, selectedDecade])
 
   const apiCallProp = (value) => {
     setApiCall(value);
   };
 
-
-  const mySearch = (value) => {
-    console.log(value)
-  };
-
   return (
     <>
       <NavBar
-        searchNow={searchNow}
         selectedGenre={selectedGenre} 
         selectedDecade={selectedDecade} 
-        mySearch={mySearch}
         onFilterChange={handleFilterChange}
-        onSearchClick={handleSearchClick}
       />
-        <SearchQueryDisplay />
         <FetchMovieData searchObj={searchObj} finishedApiUrl={apiCall}/>
         <ApiCallCreator searchObj={searchObj} apiCallProp={apiCallProp}/>
     </>

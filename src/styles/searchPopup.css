@@ -1,4 +1,4 @@
-.searchQuery-container{
+.search-popup-container{
     position: absolute;
     z-index: 1;
     background-color: rgb(19, 19, 20);
@@ -22,4 +22,9 @@
     font-size: 25px;
     background-color: blue;
     border-radius: 25px;
+}
+.searchBoxQuery{
+    margin-top: 20px;
+    margin-left: 20px;
+    float:left
 }

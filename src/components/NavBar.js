@@ -4,6 +4,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import SearchPopup from "./SearchPopup";
 import '../styles/navBar.css'
 
 // A custom hook to get the current decade and generate an array of decades
@@ -17,8 +18,8 @@ const useDecades = () => {
 };
 
 function NavBar(props) {
-
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchText, setSearchText] = useState('');
+  const [showSearchPopup, setShowSearchPopup] = useState(false);
   // An array of genres to display in the dropdown
 
     const genres = [
@@ -49,22 +50,26 @@ function NavBar(props) {
       handleDecadeChange(value);
     };
 
-  const handleSearchInputChange = (event) => {
-    console.log(event.target.value)
-    props.mySearch(event.target.value)
-    setSearchQuery(event.target.value);
-  };
-
   const handleSearchSubmit = (event) => {
     event.preventDefault();
   };
 
-  const handleButtonClick = () => {
-    props.onSearchClick(searchQuery);
-    props.searchNow(true)
-  }
+  const handleSearchChange = (e) => {
+    setSearchText(e.target.value);
+  };
+
+  const handleSearchClick = () => {
+    setShowSearchPopup(true);
+  };
+
+  const handleSearchPopupClose = () => {
+    setShowSearchPopup(false);
+    setSearchText('');
+  };
+
 
   return (
+    <>
         <Navbar  expand="lg">
         <Container>
           <Navbar.Brand href="#home">Movie Finder</Navbar.Brand>
@@ -75,10 +80,10 @@ function NavBar(props) {
             <input
               type="text"
               placeholder="Search..."
-              value={searchQuery}
-              onChange={handleSearchInputChange}
+              value={searchText}
+              onChange={handleSearchChange}
+              onClick={handleSearchClick}
             />
-            <button type="submit" onClick={handleButtonClick}>Search</button>
           </form>
             <NavDropdown title={"Genre"} id="genre-dropdown">
                 {genres.map((g) => (
@@ -106,6 +111,14 @@ function NavBar(props) {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+        {showSearchPopup && (
+          <SearchPopup
+            text={searchText}
+            onChange={handleSearchChange}
+            onClose={handleSearchPopupClose}
+          />
+        )}
+        </>
   );
 }
 
