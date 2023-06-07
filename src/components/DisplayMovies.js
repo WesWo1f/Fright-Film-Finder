@@ -76,18 +76,13 @@ function DisplayMovies({movieObjects, searchObj}) {
     }
   }}
 
-  // useEffect(()=>{
-  //   console.log(searchObj)
-  // })
-
-
   if(myMoviesObject !== undefined){
     const userInputExist = myMoviesObject.find(element => element.genreName === 'userInput');
     if(userInputExist !== undefined){
       if(userInputExist.movieList !== undefined){
         return (
           <>
-          <MovieList genreName='userInput'/>
+          {/* <MovieList genreName='userInput'/> */}
           <MovieList genreName='slasher'/>
           <MovieList genreName='creature'/>
           <MovieList genreName='vampire'/>

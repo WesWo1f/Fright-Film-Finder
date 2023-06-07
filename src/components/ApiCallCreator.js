@@ -30,7 +30,12 @@ export default function ApiCallCreator({searchObj, apiCallProp}) {
     } 
 
     function apiCallObjectMaker(genreName, apiCall){
-        if(genreName === 'userInput' && searchObj.query === undefined){
+        // const obj = {
+        //     'genreName': genreName,
+        //     'apiCall': apiCall 
+        // }
+        // return obj
+        if(genreName === 'userInput' && searchObj.query === undefined ||searchObj.query === null){
             const obj = {
                 'genreName': genreName,
                 'apiCall': 'nothing' 

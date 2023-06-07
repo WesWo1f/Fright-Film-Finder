@@ -10,11 +10,12 @@ function App() {
   const [searchObj, setSearchObj] = useState({})
   const [selectedGenre, setSelectedGenre] = useState(null);
   const [selectedDecade, setSelectedDecade] = useState(null);
+  const [searchInput, setSearchInput] = useState(null);
+  const [searchPopupMoives, setSearchPopupMoives] = useState(null) 
   const [apiCall, setApiCall] = useState();
 
 
   const handleFilterChange = (filter) => {
-    console.log(filter.decade)
       setSelectedGenre(filter.genre);
       setSelectedDecade(filter.decade);
   };
@@ -27,22 +28,35 @@ function App() {
       startSearch: '',
       genre: selectedGenre,
       decade: selectedDecade,
-      query: '',
+      query: searchInput,
   });
-  }, [selectedGenre, selectedDecade])
+  }, [selectedGenre, selectedDecade,searchInput])
 
   const apiCallProp = (value) => {
     setApiCall(value);
   };
 
+  const handleSearchChange = (value) =>{
+    setSearchInput(value)
+    console.log(value)
+
+  }
+
+  const handleMovieData = (value) => {
+    setSearchPopupMoives(value)
+    console.log(value)
+  }
+
+  
+
   return (
     <>
       <NavBar
-        selectedGenre={selectedGenre} 
-        selectedDecade={selectedDecade} 
+        searchPopupMoives={searchPopupMoives}
+        onSearchChange={handleSearchChange}
         onFilterChange={handleFilterChange}
       />
-        <FetchMovieData searchObj={searchObj} finishedApiUrl={apiCall}/>
+        <FetchMovieData fetchedMovieData={handleMovieData} searchInput={searchInput} searchObj={searchObj} finishedApiUrl={apiCall}/>
         <ApiCallCreator searchObj={searchObj} apiCallProp={apiCallProp}/>
     </>
   );

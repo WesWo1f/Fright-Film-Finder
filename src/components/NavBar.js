@@ -20,6 +20,7 @@ const useDecades = () => {
 function NavBar(props) {
   const [searchText, setSearchText] = useState('');
   const [showSearchPopup, setShowSearchPopup] = useState(false);
+  const [searchPopupMoives, setSearchPopupMoives] = useState()
   // An array of genres to display in the dropdown
 
     const genres = [
@@ -56,15 +57,18 @@ function NavBar(props) {
 
   const handleSearchChange = (e) => {
     setSearchText(e.target.value);
-  };
-
-  const handleSearchClick = () => {
+    props.onSearchChange(e.target.value)
+    setSearchPopupMoives(props.searchPopupMoives)
     setShowSearchPopup(true);
+    if(searchPopupMoives !== undefined && searchPopupMoives!== null){
+      setShowSearchPopup(true);
+    }
   };
 
   const handleSearchPopupClose = () => {
     setShowSearchPopup(false);
     setSearchText('');
+    setSearchPopupMoives('')
   };
 
 
@@ -82,7 +86,6 @@ function NavBar(props) {
               placeholder="Search..."
               value={searchText}
               onChange={handleSearchChange}
-              onClick={handleSearchClick}
             />
           </form>
             <NavDropdown title={"Genre"} id="genre-dropdown">
@@ -116,6 +119,7 @@ function NavBar(props) {
             text={searchText}
             onChange={handleSearchChange}
             onClose={handleSearchPopupClose}
+            movieList={searchPopupMoives}
           />
         )}
         </>
