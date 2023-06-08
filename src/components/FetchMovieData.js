@@ -23,6 +23,7 @@ export default function FetchMovieData(props) {
       let genreExist = movieObjects.find(movies => movies.genreName === subGenre);
       movieList = movieList.filter(movie => movie.poster_path !== null)
       if(subGenre === "userInput"){
+        movieList = movieList.filter(movie => movie.original_language === 'en')
         props.fetchedMovieData(movieList)
       }
       else{

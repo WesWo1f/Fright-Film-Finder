@@ -45,10 +45,9 @@ export default function ApiCallCreator({searchObj, apiCallProp}) {
             return obj
         }
     }
-
     useEffect(() => {
         setApiCall([
-            apiCallObjectMaker("userInput", `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchObj.query}&include_adult=false&language=en-US&page=1`),
+            apiCallObjectMaker("userInput", `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchObj.query}&include_adult=false&language=en-US`),
             apiCallObjectMaker("slasher", urlMaker(baseUrl, '&with_genres=27&with_keywords=12339')),
             apiCallObjectMaker("creature", urlMaker(baseUrl,'&with_genres=27&with_keywords=13031')),
             apiCallObjectMaker("vampire", urlMaker(baseUrl, '&with_genres=27&with_keywords=3133')),
