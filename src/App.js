@@ -30,7 +30,7 @@ function App() {
       decade: selectedDecade,
       query: searchInput,
   });
-  }, [selectedGenre, selectedDecade,searchInput])
+  }, [selectedGenre, selectedDecade, searchInput])
 
   const apiCallProp = (value) => {
     setApiCall(value);
@@ -46,8 +46,6 @@ function App() {
     setSearchPopupMoives(value)
     console.log(value)
   }
-
-  
 
   return (
     <>
