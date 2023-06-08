@@ -10,14 +10,6 @@ export default function ApiCallCreator({searchObj, apiCallProp}) {
     let baseUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false`
 
     useEffect(() => {
-        try {
-            console.log(searchObj)
-            console.log(currentDecade)
-        } catch (error) {
-            
-        }
-
-
         if(typeof(searchObj.decade) !== 'undefined' && searchObj.decade !== null){
             setcurrentDecade(searchObj.decade)
         }
@@ -46,7 +38,6 @@ export default function ApiCallCreator({searchObj, apiCallProp}) {
             return obj
         }
         else {
-            console.log('this is else')
             const obj = {
                 'genreName': genreName,
                 'apiCall': apiCall 
@@ -56,7 +47,6 @@ export default function ApiCallCreator({searchObj, apiCallProp}) {
     }
 
     useEffect(() => {
-        console.log('i ran!!')
         setApiCall([
             apiCallObjectMaker("userInput", `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchObj.query}&include_adult=false&language=en-US&page=1`),
             apiCallObjectMaker("slasher", urlMaker(baseUrl, '&with_genres=27&with_keywords=12339')),

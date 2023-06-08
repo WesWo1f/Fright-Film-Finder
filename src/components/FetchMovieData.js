@@ -7,13 +7,6 @@ export default function FetchMovieData(props) {
 
     const  [movieObjects, setMovieObjects] = useState([])
     const apiCall = useRef(props.finishedApiUrl);
-    useEffect(()=>{
-      try {
-        console.log(props.searchInput)
-      } catch (error) {
-        
-      }
-    })
 
     async function fetchMovies(subgenreUrl) {
       let url = subgenreUrl

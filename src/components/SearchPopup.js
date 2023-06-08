@@ -17,26 +17,26 @@ export default function SearchPopup({ text, onChange, onClose, movieList }) {
   if(movieList !== null && movieList !== undefined)
   return (
     <>
-   <div className='search-popup-container'>
-  <div>
-    <input
-      className='searchBoxQuery' 
-      ref={inputRef}
-      value={text}
-      onChange={onChange}
-    />
-    <button className='search-close-button' onClick={onClose}>Close</button>
-  </div>
-  <ul className='search-popup-movies'> 
-    {movieList.map(function(movie) {
-      return (
-        <li key={movie.id}>
-          <MoviePopover props={movie} moviePoster={movie.poster_path} />
-        </li>
-      );
-    })}
-  </ul> 
-</div>
+      <div className='search-popup-container'>
+        <div>
+          <input
+            className='searchBoxQuery' 
+            ref={inputRef}
+            value={text}
+            onChange={onChange}
+          />
+          <button className='search-close-button' onClick={onClose}>Close</button>
+        </div>
+        <ul className='search-popup-movies'> 
+          {movieList.map(function(movie) {
+            return (
+              <li key={movie.id}>
+                <MoviePopover props={movie} moviePoster={movie.poster_path} />
+              </li>
+            );
+          })}
+        </ul> 
+      </div>
     </>
   );
 }

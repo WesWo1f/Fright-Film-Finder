@@ -4,7 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState, useEffect } from 'react';
 import ApiCallCreator from './components/ApiCallCreator';
 import FetchMovieData from './components/FetchMovieData';
-import SearchPopup from './components/SearchPopup'
 
 function App() {
   const [searchObj, setSearchObj] = useState({})
@@ -38,17 +37,11 @@ function App() {
 
   const handleSearchChange = (value) =>{
     setSearchInput(value)
-    console.log(value)
-
   }
 
   const handleMovieData = (value) => {
     setSearchPopupMoives(value)
-    console.log(value)
   }
-  useEffect(()=>{
-    console.log(selectedDecade)
-  })
 
   return (
     <>
