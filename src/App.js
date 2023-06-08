@@ -46,6 +46,9 @@ function App() {
     setSearchPopupMoives(value)
     console.log(value)
   }
+  useEffect(()=>{
+    console.log(selectedDecade)
+  })
 
   return (
     <>
