@@ -8,7 +8,6 @@ export default function FetchMovieData(props) {
     const  [movieObjects, setMovieObjects] = useState([])
     const apiCall = useRef(props.finishedApiUrl);
 
-
     async function fetchMovies(subgenreUrl) {
       let url = subgenreUrl
       try {
@@ -23,26 +22,34 @@ export default function FetchMovieData(props) {
     const addMovie = (subGenre, movieList) => {
       let genreExist = movieObjects.find(movies => movies.genreName === subGenre);
       movieList = movieList.filter(movie => movie.poster_path !== null)
-      if(genreExist){
-        setMovieObjects(prevState => prevState.map(movie => movie.genreName === subGenre ? { ...movie, movieList: movieList } : movie))
+      if(subGenre === "userInput"){
+        movieList = movieList.filter(movie => movie.original_language === 'en')
+        props.fetchedMovieData(movieList)
       }
       else{
-        setMovieObjects(prevMovieObjects => {
-          const newMovie = {  'genreName': subGenre,'movieList': movieList}
-          return [...prevMovieObjects, newMovie];
-        });
+        if(genreExist){
+          setMovieObjects(prevState => prevState.map(movie => movie.genreName === subGenre ? { ...movie, movieList: movieList } : movie))
+        }
+        else{
+          setMovieObjects(prevMovieObjects => {
+            const newMovie = {  'genreName': subGenre,'movieList': movieList}
+            return [...prevMovieObjects, newMovie];
+          });
+        }
       }
     }
 
     async function callingFetchMovies(){
       if(props.finishedApiUrl !== undefined){
           apiCall.current.forEach(async element => {
-          const movie = await fetchMovies(element.apiCall)
-          addMovie(element.genreName, movie)
+            if(element.apiCall === 'nothing'||element.apiCall === 'null'){
+              return
+            }
+            const movie = await fetchMovies(element.apiCall)
+            addMovie(element.genreName, movie)
         });
       } 
     }
-
 
     useEffect(() => {
       if(apiCall.current !== props.finishedApiUrl && props.finishedApiUrl !== undefined){

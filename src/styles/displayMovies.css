@@ -3,6 +3,7 @@
   background-color: #000000;
 }
 .category{
+  z-index: -1;
   display: flex;
   font-size: 45px;
   justify-content: center;
@@ -10,6 +11,7 @@
 }
 
 .my-container{
+  z-index: -1;
   display: flex;
   overflow-x: hidden; 
   align-items: center;  

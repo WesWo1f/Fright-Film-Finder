@@ -11,7 +11,6 @@ export default function ApiCallCreator({searchObj, apiCallProp}) {
 
     useEffect(() => {
         if(typeof(searchObj.decade) !== 'undefined' && searchObj.decade !== null){
-            console.log(searchObj)
             setcurrentDecade(searchObj.decade)
         }
     })
@@ -31,22 +30,30 @@ export default function ApiCallCreator({searchObj, apiCallProp}) {
     } 
 
     function apiCallObjectMaker(genreName, apiCall){
-        const obj = {
-            'genreName': genreName,
-            'apiCall': apiCall 
+        if(genreName === 'userInput' && searchObj.query === undefined && searchObj.query === null){
+            const obj = {
+                'genreName': genreName,
+                'apiCall': 'nothing' 
+            }
+            return obj
         }
-        return obj
+        else {
+            const obj = {
+                'genreName': genreName,
+                'apiCall': apiCall 
+            }
+            return obj
+        }
     }
-
     useEffect(() => {
         setApiCall([
-            apiCallObjectMaker("userInput", `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchObj.query}&include_adult=false&language=en-US&page=1`),
+            apiCallObjectMaker("userInput", `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchObj.query}&include_adult=false&language=en-US`),
             apiCallObjectMaker("slasher", urlMaker(baseUrl, '&with_genres=27&with_keywords=12339')),
             apiCallObjectMaker("creature", urlMaker(baseUrl,'&with_genres=27&with_keywords=13031')),
             apiCallObjectMaker("vampire", urlMaker(baseUrl, '&with_genres=27&with_keywords=3133')),
             apiCallObjectMaker("horrorComedy", urlMaker(baseUrl, '&with_genres=27,35')),
         ]);
-    },[currentDecade, searchObj.query ])
+    },[currentDecade, searchObj.query, searchObj])
 
     useEffect(() => {
         if(apiCall.length > 1){

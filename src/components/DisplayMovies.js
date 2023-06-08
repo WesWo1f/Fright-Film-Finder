@@ -24,7 +24,6 @@ function DisplayMovies({movieObjects, searchObj}) {
       onSwipedRight: () => handleScroll( 'left'),
     });
     const handleScroll = (direction) => {
-      console.log(direction)
         if(direction === 'left'){
           if (activeIndex > 0) {
             setActiveIndex(activeIndex - 1);
@@ -39,17 +38,13 @@ function DisplayMovies({movieObjects, searchObj}) {
 
    if(myGenre !== undefined){
     let categoryTitle;
-    if (props.genreName === "userInput") {
-      categoryTitle = searchObj.query;
-    } else {
-      const result = props.genreName.replace(/([A-Z])/g, " $1");
-      categoryTitle = result.charAt(0).toUpperCase() + result.slice(1);
-    }
+    const result = props.genreName.replace(/([A-Z])/g, " $1");
+    categoryTitle = result.charAt(0).toUpperCase() + result.slice(1);
     if(myGenre.movieList.length > 0){
       return (
         <>
-                <div className='body'>
-                 <div className='category'>{categoryTitle}</div> 
+            <div className='body'>
+              <div className='category'>{categoryTitle}</div> 
                   <div  {...Handlers} >
                       <div className="my-container">
                       <button className='btn-left' onClick={() => handleScroll('left')} disabled={activeIndex === 0}></button>
@@ -74,24 +69,8 @@ function DisplayMovies({movieObjects, searchObj}) {
         </>
       )
     }
-  }
-}
-
+  }}
   if(myMoviesObject !== undefined){
-    const userInputExist = myMoviesObject.find(element => element.genreName === 'userInput');
-    if(userInputExist !== undefined){
-      if(userInputExist.movieList !== undefined){
-        return (
-          <>
-          <MovieList genreName='userInput'/>
-          <MovieList genreName='slasher'/>
-          <MovieList genreName='creature'/>
-          <MovieList genreName='vampire'/>
-          <MovieList genreName='horrorComedy'/>
-          </>
-        );
-      }
-    }
     return (
       <>
           <MovieList genreName='slasher'/>
