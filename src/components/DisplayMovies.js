@@ -73,9 +73,15 @@ function DisplayMovies({movieObjects, searchObj}) {
   if(myMoviesObject !== undefined){
     return (
       <>
+          <MovieList genreName='post-apocalyptic'/>
+          <MovieList genreName='alien'/>
+          <MovieList genreName='werewolf'/>
+          <MovieList genreName='zombie'/>
           <MovieList genreName='slasher'/>
           <MovieList genreName='creature'/>
           <MovieList genreName='vampire'/>
+          <MovieList genreName='cannibal'/>
+          <MovieList genreName='sci-fi'/>
           <MovieList genreName='horrorComedy'/>
       </>
     );
