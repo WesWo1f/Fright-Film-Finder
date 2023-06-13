@@ -15,6 +15,16 @@ function DisplayMovies({movieObjects, searchObj}) {
       decade.current = searchObj.decade
     }
   });
+  useEffect(()=>{
+    if(searchObj.genre !== undefined && searchObj.genre !== null){
+        scrollToGenre()
+    }
+  },[searchObj.genre])
+
+  const scrollToGenre = () => {
+    const genreElement = document.getElementById(searchObj.genre.name.toLowerCase());
+    genreElement.scrollIntoView({ behavior: 'smooth', block: 'center'  });
+  };
 
   function MovieList(props) {
     const myGenre = myMoviesObject.find(element => element.genreName === props.genreName)
@@ -51,7 +61,7 @@ function DisplayMovies({movieObjects, searchObj}) {
                       {myGenre.movieList.map(function(movie, index) {
                          if (index >= activeIndex && index < activeIndex + 5) {
                         return(
-                          <div className='my-movies' style={{width: '100%'}} key={movie.id}>
+                          <div className='my-movies'id={categoryTitle.toLowerCase()} style={{width: '100%'}} key={movie.id}>
                             <li key={movie.id}>
                               <MoviePopover props={movie} moviePoster={movie.poster_path} />
                             </li>
@@ -73,19 +83,20 @@ function DisplayMovies({movieObjects, searchObj}) {
   if(myMoviesObject !== undefined){
     return (
       <>
-          <MovieList genreName='post-apocalyptic'/>
-          <MovieList genreName='alien'/>
-          <MovieList genreName='werewolf'/>
-          <MovieList genreName='zombie'/>
-          <MovieList genreName='slasher'/>
-          <MovieList genreName='creature'/>
-          <MovieList genreName='vampire'/>
-          <MovieList genreName='cannibal'/>
-          <MovieList genreName='sci-fi'/>
-          <MovieList genreName='horrorComedy'/>
+          <MovieList genreName={'post-apocalyptic'}/>
+          <MovieList genreName={'alien'}/>
+          <MovieList genreName={'werewolf'}/>
+          <MovieList genreName={'zombie'}/>
+          <MovieList genreName={'slasher'}/>
+          <MovieList genreName={'creature'}/>
+          <MovieList genreName={'vampire'}/>
+          <MovieList genreName={'cannibal'}/>
+          <MovieList genreName={'sci-fi'}/>
+          <MovieList genreName={'horrorComedy'}/>
       </>
     );
   }
 }
+
 
 export default DisplayMovies;
