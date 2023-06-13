@@ -24,10 +24,16 @@ function NavBar(props) {
   // An array of genres to display in the dropdown
 
     const genres = [
-      { name: "Slasher", id: "00" },
-      { name: "Creature", id: "00" },
-      { name: "Vampire", id: "00" },
-      { name: "Horror Comedy", id: "00" },
+      { name: "Post-Apocalyptic"},
+      { name: "Alien"},
+      { name: "Werewolf"},
+      { name: "Zombie"},
+      { name: "Slasher"},
+      { name: "Creature"},
+      { name: "Vampire"},
+      { name: "Cannibal"},
+      { name: "Sci-Fi"},
+      { name: "Horror Comedy"},
     ]
     
     // An array of decades to display in the dropdown

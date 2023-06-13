@@ -13,10 +13,13 @@ function App() {
   const [searchPopupMoives, setSearchPopupMoives] = useState(null) 
   const [apiCall, setApiCall] = useState();
 
-
   const handleFilterChange = (filter) => {
+    if(filter.genre !== null && filter.genre !== undefined){
       setSelectedGenre(filter.genre);
+    }
+    if(filter.decade !== null && filter.decade !== undefined){
       setSelectedDecade(filter.decade);
+    }
   };
 
   useEffect(() => {
