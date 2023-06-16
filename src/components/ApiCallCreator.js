@@ -30,12 +30,8 @@ export default function ApiCallCreator({searchObj, apiCallProp}) {
     } 
 
     function apiCallObjectMaker(genreName, apiCall){
-        if(genreName === 'userInput' && searchObj.query === undefined && searchObj.query === null){
-            const obj = {
-                'genreName': genreName,
-                'apiCall': 'nothing' 
-            }
-            return obj
+        if(genreName === 'userInput' && searchObj.query === null ||searchObj.query === undefined){
+          return 
         }
         else {
             const obj = {
@@ -46,6 +42,7 @@ export default function ApiCallCreator({searchObj, apiCallProp}) {
         }
     }
     useEffect(() => {
+
         setApiCall([
             apiCallObjectMaker("userInput", `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchObj.query}&include_adult=false&language=en-US`),
             apiCallObjectMaker("post-apocalyptic", urlMaker(baseUrl, '&with_genres=27&with_keywords=285366|4458')),

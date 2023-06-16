@@ -9,7 +9,9 @@ function DisplayMovies({movieObjects, searchObj}) {
 
   useEffect(() => {
     if(movieObjects !== undefined && movieObjects.length > 0){
-      setMyMoviesObject(movieObjects)
+      if(movieObjects !== myMoviesObject){
+        setMyMoviesObject(movieObjects)
+      }
     }
     if(searchObj.decade !== decade.current){
       decade.current = searchObj.decade
