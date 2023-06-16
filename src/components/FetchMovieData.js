@@ -6,7 +6,7 @@ import DisplayMovies from './DisplayMovies';
 export default function FetchMovieData(props) {
 
     const  [movieObjects, setMovieObjects] = useState([])
-    const apiCall = useRef(props.finishedApiUrl);
+    const  [apiCallData, setApicallData] = useState()
 
     async function fetchMovies(subgenreUrl) {
       let url = subgenreUrl
@@ -19,45 +19,36 @@ export default function FetchMovieData(props) {
      }
     }
 
-    const addMovie = (subGenre, movieList) => {
-      let genreExist = movieObjects.find(movies => movies.genreName === subGenre);
-      movieList = movieList.filter(movie => movie.poster_path !== null)
-      if(subGenre === "userInput"){
+    const AaddMovie = (subGenre, movieList) => {
+      if(subGenre === "userInput" && movieList !== undefined){
         movieList = movieList.filter(movie => movie.original_language === 'en')
+        movieList = movieList.filter(movie => movie.poster_path !== null)
         props.fetchedMovieData(movieList)
       }
-      else{
-        if(genreExist){
-          setMovieObjects(prevState => prevState.map(movie => movie.genreName === subGenre ? { ...movie, movieList: movieList } : movie))
-        }
-        else{
-          setMovieObjects(prevMovieObjects => {
-            const newMovie = {  'genreName': subGenre,'movieList': movieList}
-            return [...prevMovieObjects, newMovie];
-          });
-        }
-      }
+      movieList = movieList.filter(movie => movie.poster_path !== null)
+      const newMovie = {  'genreName': subGenre, 'movieList': movieList}
+      return newMovie
     }
 
-    async function callingFetchMovies(){
-      if(props.finishedApiUrl !== undefined){
-          apiCall.current.forEach(async element => {
-            if(element.apiCall === 'nothing'||element.apiCall === 'null'){
-              return
-            }
-            const movie = await fetchMovies(element.apiCall)
-            addMovie(element.genreName, movie)
-        });
-      } 
+    async function AcallingFetchMovies(){
+      let finalMoiveData = []
+      for (let index = 0; index < apiCallData.length; index++) {
+       if(apiCallData[index] !== undefined){
+          const movieList = await fetchMovies(apiCallData[index].apiCall)
+          finalMoiveData.push(AaddMovie(apiCallData[index].genreName, movieList))
+        }
+      }
+      setMovieObjects(finalMoiveData)
     }
 
     useEffect(() => {
-      if(apiCall.current !== props.finishedApiUrl && props.finishedApiUrl !== undefined){
-        apiCall.current = props.finishedApiUrl;
-        callingFetchMovies()
+      if(apiCallData !== props.finishedApiUrl && props.finishedApiUrl !== undefined){
+        setApicallData(props.finishedApiUrl)
       }
-    });
- 
+      if(apiCallData !== undefined){
+        AcallingFetchMovies()
+      }
+    },[props.finishedApiUrl, apiCallData]);
  
   return (
     <>
