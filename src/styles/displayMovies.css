@@ -2,23 +2,24 @@
 .body{
   background-color: #000000;
 }
-.category{
-  z-index: -1;
+
+ .category{
   display: flex;
   font-size: 45px;
   justify-content: center;
   color: whitesmoke;
-}
+} 
 
 .my-container{
-  z-index: -1;
   display: flex;
   overflow-x: hidden; 
   align-items: center;  
-}
+  text-align: center;
+} 
 
 .my-movies{
   padding: 10px;
+  list-style: none;
 }
 
 button.my-movies{
@@ -29,15 +30,7 @@ button.my-movies{
 button.my-movies:hover {
   color: #ff0000;
   background-color: red;
-}
-
-.my-movies img{
-  max-width: 100%;
-  
-}
-.my-movies li{
-  list-style: none;
-}
+}  
 
 .btn-left {
   position: relative;
@@ -59,7 +52,20 @@ button.my-movies:hover {
   border-top: 40px solid transparent;
   border-bottom: 40px solid transparent;
   border-right: 20px solid #ff0000;
+}  
+
+@media (min-width: 768px) {
+  .my-movies img{
+    max-width: 100%;
+  }
 }
+
+@media (max-width: 767px) {
+  .my-movies img{
+    max-width: 100%;
+  }
+}
+
 
 /*
 #000000 (Black): The color of darkness and mystery.
@@ -73,6 +79,3 @@ button.my-movies:hover {
 #800080 (Purple): A deep, vibrant shade associated with supernatural elements.
 #C0C0C0 (Silver): A cool gray tone that adds a touch of eeriness.
 */
-
-
-
