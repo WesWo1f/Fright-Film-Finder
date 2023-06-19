@@ -80,9 +80,12 @@ function NavBar(props) {
 
   return (
     <>
+
         <Navbar  expand="lg">
         <Container>
-          <Navbar.Brand href="#home">Movie Finder</Navbar.Brand>
+          <Navbar.Brand href="#home"><div className="brand-container"><span className='glowing-text'>Movie<br></br></span>
+          <span className='glowing-text'>&nbsp;&nbsp;Fin</span>
+          <span className='flickering-text'>d</span><span className='glowing-text' id="glowing-text-end">er</span></div></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
           <Nav>

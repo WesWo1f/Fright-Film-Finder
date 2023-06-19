@@ -2,20 +2,19 @@
 .body{
   background-color: #000000;
 }
-
- .category{
-  display: flex;
-  font-size: 45px;
-  justify-content: center;
-  color: whitesmoke;
-} 
-
 .my-container{
   display: flex;
   overflow-x: hidden; 
   align-items: center;  
   text-align: center;
 } 
+ .category{
+  font-size: 45px;
+  text-align: center;
+  font-family: "Jazz LET", "fantasy";
+  color: whitesmoke;
+} 
+
 
 .my-movies{
   padding: 10px;
@@ -28,8 +27,8 @@ button.my-movies{
 }
 
 button.my-movies:hover {
-  color: #ff0000;
-  background-color: red;
+  color: #ab0c0c;
+  background-color: #ab0c0c;
 }  
 
 .btn-left {
@@ -40,7 +39,7 @@ button.my-movies:hover {
   background-color: #000000;
   border-top: 40px solid transparent;
   border-bottom: 40px solid transparent;
-  border-right: 20px solid #ff0000;
+  border-right: 20px solid #ab0c0c;
 }
 
 .btn-right {
@@ -51,16 +50,22 @@ button.my-movies:hover {
   background-color: #000000;
   border-top: 40px solid transparent;
   border-bottom: 40px solid transparent;
-  border-right: 20px solid #ff0000;
+  border-right: 20px solid #ab0c0c;
 }  
 
 @media (min-width: 768px) {
+  .category{
+    font-size: 45px;
+  }
   .my-movies img{
     max-width: 100%;
   }
 }
 
 @media (max-width: 767px) {
+  .category{
+    font-size: 35px;
+  }
   .my-movies img{
     max-width: 100%;
   }
@@ -78,4 +83,19 @@ button.my-movies:hover {
 #333333 (Charcoal): A dark gray, lending a touch of gloom to the palette.
 #800080 (Purple): A deep, vibrant shade associated with supernatural elements.
 #C0C0C0 (Silver): A cool gray tone that adds a touch of eeriness.
+///////////////
+#00438d,#ab0c0c,#ffa700,#000000,#bfbdbd colors
+
 */
+
+
+
+
+
+
+
+
+
+
+
+
