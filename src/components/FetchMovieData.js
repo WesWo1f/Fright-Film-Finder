@@ -35,7 +35,9 @@ export default function FetchMovieData(props) {
       for (let index = 0; index < apiCallData.length; index++) {
        if(apiCallData[index] !== undefined){
           const movieList = await fetchMovies(apiCallData[index].apiCall)
-          finalMoiveData.push(AaddMovie(apiCallData[index].genreName, movieList))
+          if(movieList.length > 0){
+            finalMoiveData.push(AaddMovie(apiCallData[index].genreName, movieList))
+          }
         }
       }
       setMovieObjects(finalMoiveData)

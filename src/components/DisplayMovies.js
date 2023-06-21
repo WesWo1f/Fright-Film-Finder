@@ -1,5 +1,5 @@
 import '../styles/displayMovies.css'
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, Children } from 'react';
 import { useSwipeable } from "react-swipeable";
 import MoviePopover from './MoviePopovers'
 
@@ -7,21 +7,17 @@ function DisplayMovies({movieObjects, searchObj}) {
   const [myMoviesObject, setMyMoviesObject] = useState();
   const [numberOfMoviesDisplayed, setNumberOfMoviesDisplayed] = useState();
   const [screenWidth, setScreenWidth] = useState(0);
-  const decade = useRef()
+
 
   useEffect(() => {
-    if(movieObjects !== undefined && movieObjects.length > 0){
-      if(movieObjects !== myMoviesObject){
-        setMyMoviesObject(movieObjects)
-      }
+    if(movieObjects.length > 0){
+      setMyMoviesObject(movieObjects)
     }
-    if(searchObj.decade !== decade.current){
-      decade.current = searchObj.decade
-    }
-  });
+  },[movieObjects]);
+
   useEffect(()=>{
-    if(searchObj.genre !== undefined && searchObj.genre !== null){
-        scrollToGenre()
+    if(myMoviesObject !== undefined){
+      scrollToGenre()
     }
   },[searchObj.genre])
 
