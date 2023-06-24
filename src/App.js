@@ -27,7 +27,6 @@ function App() {
       setSelectedDecade('All')
     }
     setSearchObj({
-      startSearch: '',
       genre: selectedGenre,
       decade: selectedDecade,
       query: searchInput,

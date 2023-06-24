@@ -8,7 +8,6 @@ function DisplayMovies({movieObjects, searchObj}) {
   const [numberOfMoviesDisplayed, setNumberOfMoviesDisplayed] = useState();
   const [screenWidth, setScreenWidth] = useState(0);
 
-
   useEffect(() => {
     if(movieObjects.length > 0){
       setMyMoviesObject(movieObjects)
