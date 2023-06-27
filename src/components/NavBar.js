@@ -6,6 +6,7 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import SearchPopup from "./SearchPopup";
 import '../styles/navBar.css'
+import ApiCallCreator from "./ApiCallCreator";
 
 // A custom hook to get the current decade and generate an array of decades
 const useDecades = () => {
@@ -17,56 +18,61 @@ const useDecades = () => {
   return decades;
 };
 
-function NavBar(props) {
+function NavBar() {
   const [searchText, setSearchText] = useState('');
   const [showSearchPopup, setShowSearchPopup] = useState(false);
-  const [searchPopupMoives, setSearchPopupMoives] = useState()
-  // An array of genres to display in the dropdown
+  const [sharedValue, setSharedValue] = useState('');
+  const [decade, setDecade] = useState();
+  const [searchObj, setSearchObj] = useState({})
+  const [userMovies, setUserMovies] = useState()
+  const [genresList, setGenresList] = useState()
+  const [selectedGenre, setSelectedGenre] = useState()
+  const [showGenres, setShowGenres] = useState()
 
-    const genres = [
-      { name: "Post-Apocalyptic"},
-      { name: "Alien"},
-      { name: "Werewolf"},
-      { name: "Zombie"},
-      { name: "Slasher"},
-      { name: "Creature"},
-      { name: "Vampire"},
-      { name: "Cannibal"},
-      { name: "Sci-Fi"},
-      { name: "Horror Comedy"},
-    ]
-    
-    // An array of decades to display in the dropdown
-    const decades = useDecades();
+   // An array of decades to display in the dropdown
+   const decades = useDecades();
 
-    // A function to handle the genre change
-    const handleGenreChange = (eventKey) => {
-      props.onFilterChange({ genre: eventKey, decade: props.selectedDecade });
-    };
-      // A function to handle the decade change
-    const handleDecadeChange = (eventKey) => {
-      props.onFilterChange({ genre: props.selectedGenre, decade: eventKey });
-    };
+  useEffect(() => {
+    if(decade === null || decade === undefined){
+      setDecade('All')
+    }
+    setSearchObj({
+      genre: selectedGenre,
+      decade: decade,
+      query: searchText,
+  });
+  }, [decade, searchText, selectedGenre])
 
-    // A custom function that returns a function
-    const handleGenreSelect = (value) => () => {
-      handleGenreChange(value);
-    };
-     // A custom function that returns a function
-    const handleDecadeSelect = (value) => () => {
-      handleDecadeChange(value);
-    };
+   const defaultGenres = [
+      "Post-Apocalyptic",
+     "Alien",
+     "Werewolf",
+     "Zombie",
+     "Slasher",
+     "Creature",
+     "Vampire",
+     "Cannibal",
+     "Sci-Fi",
+     "Horror Comedy",
+   ]
+
+  const handleGenreSelect = (value) => () => {
+    setSelectedGenre(value)
+  };
+
+  const handleDecadeSelect = (value) => () => {
+    setDecade(value)
+  };
 
   const handleSearchSubmit = (event) => {
     event.preventDefault();
   };
 
-  const handleSearchChange = (e) => {
-    setSearchText(e.target.value);
-    props.onSearchChange(e.target.value)
-    setSearchPopupMoives(props.searchPopupMoives)
+  const handleInputChange = (newValue) => {
+    setSharedValue(newValue);
+    setSearchText(newValue)
     setShowSearchPopup(true);
-    if(searchPopupMoives !== undefined && searchPopupMoives!== null){
+    if(sharedValue !== undefined && showSearchPopup !== null){
       setShowSearchPopup(true);
     }
   };
@@ -74,13 +80,27 @@ function NavBar(props) {
   const handleSearchPopupClose = () => {
     setShowSearchPopup(false);
     setSearchText('');
-    setSearchPopupMoives('')
   };
 
+  const handleUserMovies = (e) =>{
+    setUserMovies(e)
+  }
+  const handleMovieObjects = (e) => {
+    const incomingGenreList = e.map(g => g.genreName)
+    console.log(incomingGenreList)
+
+    if(incomingGenreList.length !== genresList){
+      setGenresList(incomingGenreList)
+      setShowGenres(true)
+    }
+    if(genresList === undefined || genresList.length === 0){
+      setGenresList(defaultGenres)
+      setShowGenres(true)
+    }
+  }
 
   return (
     <>
-
         <Navbar  expand="lg">
         <Container>
           <Navbar.Brand href="#home"><div className="brand-container"><span className='glowing-text'>Movie<br></br></span>
@@ -90,21 +110,21 @@ function NavBar(props) {
           <Navbar.Collapse id="basic-navbar-nav">
           <Nav>
           <form className='search-box' onSubmit={handleSearchSubmit}>
-            <input
-              type="text"
-              placeholder="Search..."
-              value={searchText}
-              onChange={handleSearchChange}
-            />
+                  <input
+                type="text"
+                value={sharedValue}
+                onChange={(e) => handleInputChange(e.target.value)}
+                placeholder="Search For Movie"
+              />
           </form>
             <NavDropdown title={"Genre"} id="genre-dropdown">
-                {genres.map((g) => (
+                {showGenres && genresList.map((g) => (
                   <NavDropdown.Item
-                    key={g.name}
-                    eventKey={g.name}
+                    key={g}
+                    eventKey={g}
                     onClick={handleGenreSelect(g)}
                   >
-                    {g.name}
+                    {g}
                   </NavDropdown.Item>
                 ))}
               </NavDropdown>
@@ -123,14 +143,10 @@ function NavBar(props) {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-        {showSearchPopup && (
-          <SearchPopup
-            text={searchText}
-            onChange={handleSearchChange}
-            onClose={handleSearchPopupClose}
-            movieList={searchPopupMoives}
-          />
-        )}
+
+        {sharedValue && showSearchPopup && <SearchPopup value={sharedValue} onChange={handleInputChange} onClose={handleSearchPopupClose} movieList={userMovies} />}
+
+        <ApiCallCreator searchObj={searchObj} getUserMovies={handleUserMovies} getMovieObjects={handleMovieObjects} /> 
         </>
   );
 }

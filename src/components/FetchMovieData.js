@@ -3,10 +3,12 @@ import { useState, useEffect, useRef } from 'react';
 import axios from "axios";
 import DisplayMovies from './DisplayMovies';
 
+
 export default function FetchMovieData(props) {
 
     const  [movieObjects, setMovieObjects] = useState([])
     const  [apiCallData, setApicallData] = useState()
+    const  [userInputMovies, setUserinputMovies] = useState()
 
     async function fetchMovies(subgenreUrl) {
       let url = subgenreUrl
@@ -23,7 +25,7 @@ export default function FetchMovieData(props) {
       if(subGenre === "userInput" && movieList !== undefined){
         movieList = movieList.filter(movie => movie.original_language === 'en')
         movieList = movieList.filter(movie => movie.poster_path !== null)
-        props.fetchedMovieData(movieList)
+        setUserinputMovies(movieList)
       }
       movieList = movieList.filter(movie => movie.poster_path !== null)
       const newMovie = {  'genreName': subGenre, 'movieList': movieList}
@@ -51,12 +53,28 @@ export default function FetchMovieData(props) {
         AcallingFetchMovies()
       }
     },[props.finishedApiUrl, apiCallData]);
- 
-  return (
-    <>
-    <DisplayMovies movieObjects={movieObjects} searchObj={props.searchObj} />
-    </>
-  )
+
+    useEffect(()=>{
+      if(userInputMovies !== undefined && userInputMovies !== null){
+        props.getUserMovies(userInputMovies)
+      }
+      if(movieObjects !== undefined && movieObjects !== null){
+        let genreList = []
+        for (let index = 0; index < movieObjects.length; index++) {
+            if(movieObjects[index].movieList.length > 5){
+              genreList.push(movieObjects[index])
+            }
+        }
+        props.getMovieObjects(genreList)
+      }
+    },[movieObjects,userInputMovies])
+
+   
+    return (
+      <>
+      <DisplayMovies movieObjects={movieObjects} searchObj={props.searchObj} />
+      </>
+    )
 }
 
 

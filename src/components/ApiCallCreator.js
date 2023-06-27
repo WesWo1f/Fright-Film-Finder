@@ -1,9 +1,9 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
-import { useRef } from 'react'
+import FetchMovieData from './FetchMovieData'
 
-export default function ApiCallCreator({searchObj, apiCallProp}) {
+export default function ApiCallCreator({searchObj, getUserMovies, getMovieObjects}) {
     const [currentDecade, setcurrentDecade] = useState('All')
     const [apiCall, setApiCall] = useState([])
     const apiKey ="55825d24c64a739bb6707335b1645b0c"
@@ -42,7 +42,6 @@ export default function ApiCallCreator({searchObj, apiCallProp}) {
         }
     }
     useEffect(() => {
-
         setApiCall([
             apiCallObjectMaker("userInput", `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchObj.query}&include_adult=false&language=en-US`),
             apiCallObjectMaker("post-apocalyptic", urlMaker(baseUrl, '&with_genres=27&with_keywords=285366|4458')),
@@ -58,13 +57,18 @@ export default function ApiCallCreator({searchObj, apiCallProp}) {
         ]);
     },[currentDecade, searchObj.query, searchObj])
 
-    useEffect(() => {
-        if(apiCall.length > 1){
-            apiCallProp(apiCall)
-        }
-    })
+    const handleUserMovies = (e) => {
+        getUserMovies(e)
+    }
+    const handleMovieObjects = (e) => {
+        getMovieObjects(e)
+    }
 
-  return ( null )
+    return(
+    <>
+    <FetchMovieData finishedApiUrl={apiCall} searchObj={searchObj} userInput={searchObj.query} getUserMovies={handleUserMovies} getMovieObjects={handleMovieObjects}/>
+    </>
+    )
 }
 
 
