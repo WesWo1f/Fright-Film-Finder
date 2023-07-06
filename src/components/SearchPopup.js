@@ -6,17 +6,25 @@ import MoviePopover from './MoviePopovers'
 
 export default function SearchPopup({value, onChange, movieList, onClose}) {
 
-  const [userMovieList, setUserMovieList] = useState()
+  const [filteredList, setFilteredList] = useState()
+  const [displayPopup, setDisplayPopup] = useState(false)
 
   const handleChange = (event) => {
     onChange(event.target.value);
   };
   
-  useEffect(()=>{
+  useEffect(() => {
     if(movieList !== undefined && movieList !== null){
-      setUserMovieList(movieList)
+      movieList = movieList.filter(movie => movie.original_language === 'en')
+      movieList = movieList.filter(movie => movie.poster_path !== null)
+      setFilteredList(movieList)
+      setDisplayPopup(true)
     }
-  })
+    else{
+      setDisplayPopup(false)
+    }
+  },[movieList])
+
     return (
         <>
           <div className='search-popup-container'>
@@ -31,8 +39,8 @@ export default function SearchPopup({value, onChange, movieList, onClose}) {
             <button className='search-close-button' onClick={onClose}>Close</button>
             </div>
             <ul className='search-popup-movies'> 
-              {userMovieList &&
-                movieList.map(function(movie) {
+              {displayPopup &&
+                filteredList.map(function(movie) {
                   return (
                     <li key={movie.id}>
                       <MoviePopover props={movie} moviePoster={movie.poster_path} />

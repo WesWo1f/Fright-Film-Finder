@@ -6,7 +6,7 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import SearchPopup from "./SearchPopup";
 import '../styles/navBar.css'
-import ApiCallCreator from "./ApiCallCreator";
+import FetchMovies from "./FetchMovies";
 
 // A custom hook to get the current decade and generate an array of decades
 const useDecades = () => {
@@ -19,16 +19,14 @@ const useDecades = () => {
 };
 
 function NavBar() {
-  const [searchText, setSearchText] = useState('');
   const [showSearchPopup, setShowSearchPopup] = useState(false);
   const [sharedValue, setSharedValue] = useState('');
   const [decade, setDecade] = useState();
   const [searchObj, setSearchObj] = useState({})
   const [userMovies, setUserMovies] = useState()
-  const [genresList, setGenresList] = useState()
+  const [genresList, setGenresList] = useState([])
   const [selectedGenre, setSelectedGenre] = useState()
   const [showGenres, setShowGenres] = useState()
-
    // An array of decades to display in the dropdown
    const decades = useDecades();
 
@@ -39,22 +37,9 @@ function NavBar() {
     setSearchObj({
       genre: selectedGenre,
       decade: decade,
-      query: searchText,
+      query: sharedValue
   });
-  }, [decade, searchText, selectedGenre])
-
-   const defaultGenres = [
-      "Post-Apocalyptic",
-     "Alien",
-     "Werewolf",
-     "Zombie",
-     "Slasher",
-     "Creature",
-     "Vampire",
-     "Cannibal",
-     "Sci-Fi",
-     "Horror Comedy",
-   ]
+  }, [decade, sharedValue, selectedGenre])
 
   const handleGenreSelect = (value) => () => {
     setSelectedGenre(value)
@@ -70,7 +55,6 @@ function NavBar() {
 
   const handleInputChange = (newValue) => {
     setSharedValue(newValue);
-    setSearchText(newValue)
     setShowSearchPopup(true);
     if(sharedValue !== undefined && showSearchPopup !== null){
       setShowSearchPopup(true);
@@ -79,24 +63,25 @@ function NavBar() {
 
   const handleSearchPopupClose = () => {
     setShowSearchPopup(false);
-    setSearchText('');
+    setSharedValue('')
   };
 
-  const handleUserMovies = (e) =>{
-    setUserMovies(e)
-  }
   const handleMovieObjects = (e) => {
-    const incomingGenreList = e.map(g => g.genreName)
-    console.log(incomingGenreList)
+    const capitalizeWords = (str) => {
+      let words = str.replace(/([a-z])([A-Z])/g, '$1 $2')
+      return words.replace(/(^|-|\s+)([a-z])/g, (match, separator, letter) => {
+        return separator + letter.toUpperCase();
+      });
+    };
+    
+    if(e !== undefined && e !== null){
+        const incomingGenreList = e.map((g, index) => ({ id: index,  name: capitalizeWords(g.genreName)}));
+        setGenresList(incomingGenreList)
+    }
+  }
 
-    if(incomingGenreList.length !== genresList){
-      setGenresList(incomingGenreList)
-      setShowGenres(true)
-    }
-    if(genresList === undefined || genresList.length === 0){
-      setGenresList(defaultGenres)
-      setShowGenres(true)
-    }
+  const handleUserMovies = (e) => {
+    setUserMovies(e.movieList)
   }
 
   return (
@@ -118,15 +103,19 @@ function NavBar() {
               />
           </form>
             <NavDropdown title={"Genre"} id="genre-dropdown">
-                {showGenres && genresList.map((g) => (
+            {genresList.length > 0 ? (
+               genresList.map((g) => (
                   <NavDropdown.Item
-                    key={g}
-                    eventKey={g}
+                    key={g.id}
+                    eventKey={g.name}
                     onClick={handleGenreSelect(g)}
                   >
-                    {g}
+                    {g.name}
                   </NavDropdown.Item>
-                ))}
+                ))
+                ) : (
+                  <NavDropdown.Item disabled>No items available</NavDropdown.Item>
+                )}
               </NavDropdown>
               <NavDropdown title={"Decade"} id="decade-dropdown">
                   {decades.map((d) => (
@@ -144,14 +133,20 @@ function NavBar() {
         </Container>
       </Navbar>
 
-        {sharedValue && showSearchPopup && <SearchPopup value={sharedValue} onChange={handleInputChange} onClose={handleSearchPopupClose} movieList={userMovies} />}
+      <FetchMovies searchObj={searchObj} getMovieObjects={handleMovieObjects} userInputValue={sharedValue} getUserMovieList={handleUserMovies}/>
 
-        <ApiCallCreator searchObj={searchObj} getUserMovies={handleUserMovies} getMovieObjects={handleMovieObjects} /> 
-        </>
+      {sharedValue && showSearchPopup && <SearchPopup value={sharedValue} onChange={handleInputChange} onClose={handleSearchPopupClose} movieList={userMovies} />}
+
+    </>
   );
 }
 
 export default NavBar;
+
+
+
+
+
 
 
 
