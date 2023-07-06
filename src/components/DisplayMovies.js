@@ -1,5 +1,5 @@
 import '../styles/displayMovies.css'
-import React, { useState, useEffect, useRef, Children } from 'react';
+import React, { useState, useEffect} from 'react';
 import { useSwipeable } from "react-swipeable";
 import MoviePopover from './MoviePopovers'
 
@@ -15,11 +15,12 @@ function DisplayMovies({movieObjects, searchObj}) {
     }
   },[movieObjects]);
 
+
   useEffect(()=>{
-    if(searchObj.genre !== undefined && searchObj.genre !== null){
-      setSelectedGenre(searchObj.genre)
-    }
-  })
+      if(searchObj.genre !== undefined && searchObj.genre !== null){
+        setSelectedGenre(searchObj.genre)
+      }
+  },[searchObj.genre])
   
   useEffect(()=>{
     if(seletedGenre !== undefined){
@@ -50,7 +51,7 @@ function DisplayMovies({movieObjects, searchObj}) {
   }, [screenWidth]);
 
   const scrollToGenre = (name) => {
-    name = name.toLowerCase()
+    name = name.name.toLowerCase().replace(/\s/g, '');
     const genreElement = document.querySelector(`#${name}`);
     genreElement.scrollIntoView({ behavior: 'smooth', block: 'center'  });
   };
@@ -80,6 +81,7 @@ function DisplayMovies({movieObjects, searchObj}) {
     let categoryTitle;
     const result = props.genreName.replace(/([A-Z])/g, " $1");
     categoryTitle = result.charAt(0).toUpperCase() + result.slice(1);
+    categoryTitle = categoryTitle.replace(/\-[a-z]/g, match => match.toUpperCase())
     if(myGenre.movieList.length > 5){
       return (
         <>
