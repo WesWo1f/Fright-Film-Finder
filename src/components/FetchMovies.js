@@ -29,7 +29,7 @@ export default function TestingServer(props) {
         console.log('Fetching main categories')
         try {
           for (let i = 0; i <= apiCallList.length; i++) {
-            const response = await fetch(`${process.env.SERVER_DISCOVER}`, {
+            const response = await fetch('https://horror-movie-app-server-f55a090ce3b2.herokuapp.com/discover', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
@@ -87,7 +87,7 @@ export default function TestingServer(props) {
       const fetchData = async () => {
         console.log('Fetching user movie request')
         try {
-            const response = await fetch(`${process.env.SERVER_QUERY}`, {
+            const response = await fetch('https://horror-movie-app-server-f55a090ce3b2.herokuapp.com/userquery', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
