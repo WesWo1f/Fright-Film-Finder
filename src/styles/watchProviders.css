@@ -12,7 +12,9 @@
     height: 40px;
     border-radius: 15px;
 }
-.popover-body{
+.popover-body {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
     margin: -5px;
 }
 .watch-providers-name{
@@ -22,10 +24,20 @@
 }
 
 .popover-header {
+    background-color: #ab0c0c !important;
     font-size: 20px !important;
     text-align: center;
 }
-
-.providers-container{
+.movie-overview {
+    font-weight: 500;
+    color: whitesmoke;
+    margin-bottom: -20px;
+}
+.release-date-and-vote-average{
     text-align: center;
+}
+
+.providers-container {
+    display: flex;
+    justify-content: space-evenly;
 }

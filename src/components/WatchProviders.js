@@ -50,8 +50,8 @@ export default function WatchProviders(props) {
           return item 
         })
         const providersPopover = (
-          <Popover id="popover-basic">
-            <Popover.Body>
+          <Popover id="popover-basic" >
+            <Popover.Body >
                   <ul>
                     {providersArray.map((item, index) => (
                       <li key={index} className='watch-providers-logo-and-name-container'>
@@ -69,7 +69,7 @@ export default function WatchProviders(props) {
         );
     return (
       <>
-        <OverlayTrigger trigger="click" rootClose={true} placement={"auto"} overlay={providersPopover}>
+        <OverlayTrigger trigger="click" rootClose={true} placement={"auto"} overlay={providersPopover} >
         <Button style={{margin: 5}}>{buttonName}</Button>
         </OverlayTrigger>
      </>
@@ -81,7 +81,7 @@ export default function WatchProviders(props) {
     return (
       <>
         <div className='providers-container'>
-          <Providers type={"Buy"} />
+          <Providers type={"Buy"}  />
           <Providers type={"Rent"} />
           <Providers type={"Flatrate"} />
         </div>
