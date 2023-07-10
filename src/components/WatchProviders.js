@@ -80,10 +80,12 @@ export default function WatchProviders(props) {
     }
     return (
       <>
-      <Providers type={"Buy"} />
-      <Providers type={"Rent"} />
-      <Providers type={"Flatrate"} />
-    </>
+        <div className='providers-container'>
+          <Providers type={"Buy"} />
+          <Providers type={"Rent"} />
+          <Providers type={"Flatrate"} />
+        </div>
+      </>
     )
     }
 }
