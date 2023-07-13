@@ -1,99 +1,63 @@
 
 .navbar-brand {
-    display: flex;
-    flex-shrink: inherit;
-    font-size: 50px !important;
-    font-weight: bold;
-}
-.brand-container{
-    margin-left: 30px;
-    background-color: black;
-    border-radius: 25px;
-    line-height: 45px;
+    font-size: 30px !important;
+    font-family: 'Nosifer', "fantasy";
+    color: #ffa700 !important;
+    text-shadow: 0 0 5px black, 0 0 10px black, 0 0 20px black ;
 }
 
-.glowing-text{
-    padding-left: 7px;
-    font-family: "Jazz LET", "fantasy";
-    font-size: 55px;
-    text-align: center;
-    color:red;
-    text-shadow: 0 0 5px #00008B, 0 0 10px #00008B, 0 0 20px #00008B;
-}
-#glowing-text-end{
-    padding-right: 7px;
-    margin-left: -7px;
-}
-
-.flickering-text {
-  font-family: "Jazz LET", "fantasy";
-  font-size: 55px;
-  color: red; 
-  text-shadow: 0 0 10px #00008B, 0 0 20px #00008B, 0 0 30px #00008B;
-  animation: flicker 5s linear infinite;
-}
-
-@keyframes flicker {
-  0%, 24%, 25%, 29%, 30%, 50%, 51%, 74%, 75%, 79%, 80%, 100% {
-    opacity: 1;
-    text-shadow: 0 0 10px #00008B, 0 0 20px #00008B, 0 0 30px #00008B;
-  }
-  26%, 28%, 52%, 54%, 78% {
-    opacity: 0.2;
-    text-shadow: none;
-  }
-  27%, 53%, 77% {
-    opacity: 0.5;
-    text-shadow: 0 0 10px #ffa700, 0 0 20px #ffa700, 0 0 30px #ffa700;
-  }
-}
-.navbar form{
-    display: flex;
-    align-items: center;
-}
-.navbar{
+.navbar {
     background-color: #660000;
 }
 
-.dropdown-toggle nav-link{
-    font-family: "Jazz LET", "fantasy";
-    font-size: 25px;
-    font-weight: bold;
-    color: #C0C0C0;
+.navbar-toggler-icon {
+    font-size: 0.8em;
+    background-image: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 30 30%27%3e%3cpath stroke=%27rgba%28, 0, 0, 0.7%29%27 stroke-linecap=%27round%27 stroke-miterlimit=%2710%27 stroke-width=%272%27 d=%27M4 7h22M4 15h22M4 23h22%27/%3e%3c/svg%3e") !important;  
 }
-#genre-dropdown{
-    font-family: "Jazz LET", "fantasy";
-    font-size: 35px;
-    font-weight: bold;
-    color: whitesmoke;
-    text-shadow: 2px 2px rgb(0, 0, 0);
-    padding-right: 10px;
-    padding-left: 10px;
-}
-#decade-dropdown{
-    font-family: "Jazz LET", "fantasy";
-    font-size: 35px;
-    font-weight: bold;
-    color: whitesmoke;
-    text-shadow: 2px 2px black;
-    padding-right: 10px;
-    padding-left: 10px;
-}
-.seleted-decade {
-    font-family: "Jazz LET", "fantasy";
-    font-size: 20px;
-    font-weight: bold;
-    color: whitesmoke;;
-    padding: 10px 20px;
-    border-radius: 5px;
+.navbar-toggler{
+    background-color: #ffa700 !important;
 }
 
-.search-box{
-    border-radius: 25px;
-    padding-right: 20px;
-    padding-left: 20px;
+#genre-dropdown {
+    font-family: 'Staatliches';
+    font-weight: 500;
+    font-size: 35px;
+    padding-left: 25px;
 }
-.search-box input{
-    height: 40px;
-    border-radius: 25px;
+
+#decade-dropdown {
+    font-family: 'Staatliches';
+    font-weight: 500;
+    font-size: 35px;
+    padding-left: 25px;
 }
+
+.search-box {
+    align-self: center !important;
+}
+.search-box input {
+    font-size: large;
+    width: 300px;
+    height: 30px;
+}
+
+@media (min-width: 768px) {
+
+  }
+  
+  /* @media (max-width: 767px) { */
+  @media (max-width: 1140px) {
+    .navbar-brand {
+    font-size: 20px !important;
+    }
+    .search-box input{
+        width: 200px;
+        height: 30px;
+    }
+    #genre-dropdown {
+        font-size: 25px;
+    }
+    #decade-dropdown {
+        font-size: 25px;
+    }
+  } 

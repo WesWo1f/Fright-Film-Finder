@@ -86,20 +86,18 @@ function NavBar() {
 
   return (
     <>
-        <Navbar  expand="lg">
+        <Navbar expand="lg">
         <Container>
-          <Navbar.Brand href="#home"><div className="brand-container"><span className='glowing-text'>Movie<br></br></span>
-          <span className='glowing-text'>&nbsp;&nbsp;Fin</span>
-          <span className='flickering-text'>d</span><span className='glowing-text' id="glowing-text-end">er</span></div></Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Brand href="#home">Fright Film Finder</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav"/>
           <Navbar.Collapse id="basic-navbar-nav">
-          <Nav>
+          <Nav className="ms-auto">
           <form className='search-box' onSubmit={handleSearchSubmit}>
-                  <input
+              <input
                 type="text"
                 value={sharedValue}
                 onChange={(e) => handleInputChange(e.target.value)}
-                placeholder="Search For Movie"
+                placeholder="Search For Movies"
               />
           </form>
             <NavDropdown title={"Genre"} id="genre-dropdown">
@@ -132,7 +130,6 @@ function NavBar() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-
       <FetchMovies searchObj={searchObj} getMovieObjects={handleMovieObjects} userInputValue={sharedValue} getUserMovieList={handleUserMovies}/>
 
       {sharedValue && showSearchPopup && <SearchPopup value={sharedValue} onChange={handleInputChange} onClose={handleSearchPopupClose} movieList={userMovies} />}
@@ -142,13 +139,5 @@ function NavBar() {
 }
 
 export default NavBar;
-
-
-
-
-
-
-
-
 
 

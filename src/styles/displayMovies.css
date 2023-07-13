@@ -10,11 +10,11 @@
 } 
  .category{
   font-size: 45px;
+  text-align: start;
   text-align: center;
-  font-family: "Jazz LET", "fantasy";
-  color: whitesmoke;
+  font-family: 'Staatliches';
+  color: red;
 } 
-
 
 .my-movies{
   padding: 10px;
