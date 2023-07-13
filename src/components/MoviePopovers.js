@@ -3,22 +3,27 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import WatchProviders from './WatchProviders';
 
-//test
 function MoviePopover(movie) {
+  function firstFourLetters(string) {
+    const firstFour = string.substring(0, 4);
+    return firstFour;
+  }
   const popover = (
-    <Popover id="popover-basic">
+    <Popover id="popover-basic" >
       <Popover.Header as="h3">{movie.props.title}</Popover.Header>
-      <Popover.Body>
-        <strong>{movie.props.overview}</strong><br></br>
-        released: {movie.props.release_date} rating: { movie.props.vote_average}
-        <WatchProviders movieId={movie.props.id}/>
+      <Popover.Body >
+        <div className='movie-overview'>{movie.props.overview}</div><br></br>
+        <div className='release-date-and-vote-average'>
+          <strong>Released: </strong>{firstFourLetters(movie.props.release_date)} <strong>Rating: </strong>{ movie.props.vote_average}
+        </div>
+        <WatchProviders movieId={movie.props.id} />
       </Popover.Body>
     </Popover>
   );
 
   return (
     <>
-      <OverlayTrigger trigger="click" rootClose={true} placement={"auto"} overlay={popover}>
+      <OverlayTrigger trigger="click" rootClose={true} placement={"auto"} overlay={popover} >
         <Button>   <img
             src={`https://image.tmdb.org/t/p/w500${movie.moviePoster}`}
             alt={movie.title}/></Button>

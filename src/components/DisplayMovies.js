@@ -44,9 +44,9 @@ function DisplayMovies({movieObjects, searchObj}) {
   useEffect(() => {
     // Perform actions based on screen size
     if (screenWidth > 768) {
-      setNumberOfMoviesDisplayed(5)
+       setNumberOfMoviesDisplayed(6)
     } else {
-      setNumberOfMoviesDisplayed(2)
+      setNumberOfMoviesDisplayed(3)
     }
   }, [screenWidth]);
 
