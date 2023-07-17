@@ -9,12 +9,12 @@ function DisplayMovies({movieObjects, searchObj}) {
   const [screenWidth, setScreenWidth] = useState(0);
   const [seletedGenre, setSelectedGenre] = useState()
 
+
   useEffect(() => {
     if(movieObjects.length > 0){
       setMyMoviesObject(movieObjects)
     }
   },[movieObjects]);
-
 
   useEffect(()=>{
       if(searchObj.genre !== undefined && searchObj.genre !== null){
@@ -58,8 +58,8 @@ function DisplayMovies({movieObjects, searchObj}) {
 
   function MovieList(props) {
     const myGenre = myMoviesObject.find(element => element.genreName === props.genreName)
+    console.log(myGenre)
     const [activeIndex, setActiveIndex] = useState(0);
-
     const Handlers = useSwipeable({
       onSwipedLeft: () => handleScroll('right'),
       onSwipedRight: () => handleScroll( 'left'),
@@ -102,7 +102,7 @@ function DisplayMovies({movieObjects, searchObj}) {
                       })}
                       <button className='btn-right'
                           onClick={() => handleScroll('right')}
-                          disabled={activeIndex >= myGenre.movieList.length - 5}
+                          disabled={activeIndex >= myGenre.movieList.length - 6}
                         >
                       </button>
                   </div>
