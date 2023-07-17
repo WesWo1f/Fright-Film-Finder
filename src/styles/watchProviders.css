@@ -25,6 +25,8 @@
 
 .popover-header {
     background-color: #ab0c0c !important;
+    font-weight: 600;
+    color: black !important;
     font-size: 20px !important;
     text-align: center;
 }
