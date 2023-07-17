@@ -93,9 +93,9 @@ function DisplayMovies({movieObjects, searchObj}) {
                       {myGenre.movieList.map(function(movie, index) {
                          if (index >= activeIndex && index < activeIndex + numberOfMoviesDisplayed) {
                         return(
-                          <div className='my-movies'id={props.genreName.toLowerCase()} style={{ width: '100%'}}   key={movie.id}>
+                          <div className='my-movies' id={props.genreName.toLowerCase()}   style={{ width: '100%'}}   key={movie.id}>
                             <li key={movie.id}>
-                              <MoviePopover props={movie} moviePoster={movie.poster_path} />
+                              <MoviePopover props={movie} moviePoster={movie.poster_path}  />
                             </li>
                           </div>
                         )} 

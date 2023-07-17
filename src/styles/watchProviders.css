@@ -30,6 +30,7 @@
 }
 .movie-overview {
     font-weight: 500;
+    /* color: white; */
     color: black;
     margin-bottom: -20px;
 }
