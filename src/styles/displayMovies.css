@@ -32,7 +32,7 @@
 
 .btn-left {
   position: relative;
-  left: 0px;
+  left: -5px;
   cursor: pointer;
   transform: rotate(0deg);
   background-color: #000000;
@@ -43,7 +43,7 @@
 
 .btn-right {
   position: relative;
-  right: 0px;
+  right: -5px;
   cursor: pointer;
   transform: rotate(180deg);
   background-color: #000000;
