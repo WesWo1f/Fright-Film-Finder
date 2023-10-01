@@ -14,17 +14,13 @@ function DisplayMovies({movieObjects, searchObj}) {
     if(movieObjects.length > 0){
       setMyMoviesObject(movieObjects)
     }
-  },[movieObjects]);
+    setSelectedGenre(searchObj.genre)
+  },[movieObjects, searchObj]);
+
 
   useEffect(()=>{
-      if(searchObj.genre !== undefined && searchObj.genre !== null){
-        setSelectedGenre(searchObj.genre)
-      }
-  },[searchObj.genre])
-  
-  useEffect(()=>{
     if(seletedGenre !== undefined){
-      scrollToGenre(seletedGenre)
+      scrollToGenre(seletedGenre.name)
     }
   },[seletedGenre])
 
@@ -51,14 +47,13 @@ function DisplayMovies({movieObjects, searchObj}) {
   }, [screenWidth]);
 
   const scrollToGenre = (name) => {
-    name = name.name.toLowerCase().replace(/\s/g, '');
+    name = name.toLowerCase().replaceAll(' ','');
     const genreElement = document.querySelector(`#${name}`);
     genreElement.scrollIntoView({ behavior: 'smooth', block: 'center'  });
   };
 
   function MovieList(props) {
     const myGenre = myMoviesObject.find(element => element.genreName === props.genreName)
-    console.log(myGenre)
     const [activeIndex, setActiveIndex] = useState(0);
     const Handlers = useSwipeable({
       onSwipedLeft: () => handleScroll('right'),
@@ -78,11 +73,12 @@ function DisplayMovies({movieObjects, searchObj}) {
     }
 
    if(myGenre !== undefined){
+    const {genreName, movieList} = myGenre;
     let categoryTitle;
-    const result = props.genreName.replace(/([A-Z])/g, " $1");
+    const result = genreName.replace(/([A-Z])/g, " $1");
     categoryTitle = result.charAt(0).toUpperCase() + result.slice(1);
     categoryTitle = categoryTitle.replace(/\-[a-z]/g, match => match.toUpperCase())
-    if(myGenre.movieList.length > 5){
+    if(movieList.length > 5){
       return (
         <>
             <div className='body'>
@@ -90,10 +86,10 @@ function DisplayMovies({movieObjects, searchObj}) {
                   <div  {...Handlers} >
                       <div className="my-container">
                       <button className='btn-left' onClick={() => handleScroll('left')} disabled={activeIndex === 0}></button>
-                      {myGenre.movieList.map(function(movie, index) {
+                      {movieList.map(function(movie, index) {
                          if (index >= activeIndex && index < activeIndex + numberOfMoviesDisplayed) {
                         return(
-                          <div className='my-movies' id={props.genreName.toLowerCase()}   style={{ width: '100%'}}   key={movie.id}>
+                          <div className='my-movies' id={genreName.toLowerCase()}   style={{ width: '100%'}}   key={movie.id}>
                             <li key={movie.id}>
                               <MoviePopover props={movie} moviePoster={movie.poster_path}  />
                             </li>
@@ -102,7 +98,7 @@ function DisplayMovies({movieObjects, searchObj}) {
                       })}
                       <button className='btn-right'
                           onClick={() => handleScroll('right')}
-                          disabled={activeIndex >= myGenre.movieList.length - 6}
+                          disabled={activeIndex >= movieList.length - 6}
                         >
                       </button>
                   </div>
