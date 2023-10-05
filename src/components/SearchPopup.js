@@ -12,11 +12,11 @@ export default function SearchPopup({value, onChange, movieList, onClose}) {
   const handleChange = (event) => {
     onChange(event.target.value);
   };
+
   
   useEffect(() => {
     if(movieList !== undefined && movieList !== null){
-      movieList = movieList.filter(movie => movie.original_language === 'en')
-      movieList = movieList.filter(movie => movie.poster_path !== null)
+      movieList = movieList.filter(movie => movie.original_language === 'en' && movie.poster_path !== null)
       setFilteredList(movieList)
       setDisplayPopup(true)
     }

@@ -67,7 +67,6 @@ export default function TestingServer({getMovieObjects,searchObj, userInputValue
 
   // this creates (genreList) checks to see if it contains (5) or more movies then is sent to (Navbar)
   useEffect(() => {
-    console.log('please no')
     if (categoryMoviesList !== undefined && categoryMoviesList !== null) {
       let genreList = [];
       for (let index = 0; index < categoryMoviesList.length; index++) {
