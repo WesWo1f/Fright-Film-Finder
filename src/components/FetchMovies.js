@@ -69,6 +69,7 @@ export default function TestingServer({getMovieObjects,searchObj, userInputValue
   useEffect(() => {
     if (categoryMoviesList !== undefined && categoryMoviesList !== null) {
       let genreList = [];
+      console.log(categoryMoviesList)
       for (let index = 0; index < categoryMoviesList.length; index++) {
         if (
           categoryMoviesList[index].movieList.length > 5 &&
