@@ -80,6 +80,7 @@ export default function WatchProviders(props) {
     }
     return (
       <>
+      <h6>&#8595; Where to watch &#8595;</h6>
         <div className='providers-container'>
           <Providers type={"Buy"}  />
           <Providers type={"Rent"} />
