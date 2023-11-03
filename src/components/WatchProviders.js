@@ -74,19 +74,29 @@ export default function WatchProviders(props) {
         </OverlayTrigger>
      </>
     )}
+
      } catch (error) {
       
      }
     }
+
+    if(!movieProviders?.results?.US){
+      return (
+        <>
+          <h6>&#8595; Where to watch &#8595;</h6>
+          <h6>Sorry no streaming options.  </h6>
+        </>
+      )
+    }
     return (
       <>
-      <h6>&#8595; Where to watch &#8595;</h6>
+        <h6>&#8595; Where to watch &#8595;</h6>
         <div className='providers-container'>
           <Providers type={"Buy"}  />
-          <Providers type={"Rent"} />
-          <Providers type={"Flatrate"} />
+          <Providers type={"Rent"} /> 
+          <Providers type={"Flatrate"}/>
         </div>
       </>
     )
-    }
+  }
 }
