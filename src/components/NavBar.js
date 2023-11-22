@@ -7,6 +7,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import SearchPopup from "./SearchPopup";
 import '../styles/navBar.css'
 import FetchMovies from "./FetchMovies";
+import SignUp from "./SignUp"
 
 // A custom hook to get the current decade and generate an array of decades
 const useDecades = () => {
