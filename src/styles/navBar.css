@@ -10,7 +10,6 @@
     background-color: #660000;
 }
 
-
 .navbar-toggler{
     background-color: #ffa700 !important;
 }
@@ -47,6 +46,9 @@
   @media (max-width: 1140px) {
     .navbar-brand {
     font-size: 20px !important;
+    }
+    .navbar-button{
+        float:right;
     }
     .search-box input{
         width: 200px;
