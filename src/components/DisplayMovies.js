@@ -11,7 +11,7 @@ function DisplayMovies({movieObjects, searchObj}) {
 
 
   useEffect(() => {
-    if(movieObjects.length > 0){
+    if(movieObjects?.length > 0 ){
       setMyMoviesObject(movieObjects)
     }
     setSelectedGenre(searchObj.genre)
@@ -78,7 +78,7 @@ function DisplayMovies({movieObjects, searchObj}) {
     const result = genreName.replace(/([A-Z])/g, " $1");
     categoryTitle = result.charAt(0).toUpperCase() + result.slice(1);
     categoryTitle = categoryTitle.replace(/\-[a-z]/g, match => match.toUpperCase())
-    if(movieList.length > 5){
+    if(movieList?.length > 5){
       return (
         <>
             <div className='body'>

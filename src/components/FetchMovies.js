@@ -1,112 +1,70 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import DisplayMovies from "./DisplayMovies";
+import getMovieApiCallList from '../utils/GetMovieApiCallList';
 
-export default function TestingServer({getMovieObjects,searchObj, userInputValue, getUserMovieList}) {
+export default function TestingServer({getMovieObjects, searchObj, userInputValue, getUserMovieList}) {
   const [decade, setDecade] = useState(undefined);
-  const [apiCallList, setApiCallList] = useState(null);
-  const [categoryMoviesList, setCategoryMoviesList] = useState([]);
+  const [apiCallList, setApiCallList] = useState(undefined);
+  const [categoryMoviesList, setCategoryMoviesList] = useState(undefined);
   const [userInput, setUserInput] = useState();
-  const [userInputMoviesList, setUserinputMovies] = useState();
+  const [userInputMoviesList, setUserInputMovies] = useState();
+  const [streamingService, setStreamingService] = useState(undefined);
+
 
   useEffect(() => {
+    setStreamingService(searchObj.providerIds)
     if(searchObj.decade !== undefined){
       setDecade(searchObj.decade);
     }
-  },[searchObj])
+  },[searchObj]);
+
 
   useEffect(() => {
-    console.log('movieApiCallList')
     if(decade !== undefined){
-      let movieApiCallList = [];
-      movieApiCallList.push({genreName:"alien", genreNumber: 27, decade: decade, keywords: 9951})
-      movieApiCallList.push({genreName:"post-apocalyptic", genreNumber: 27, decade: decade, keywords: "285366|4458"})
-      movieApiCallList.push({genreName:"werewolf", genreNumber: 27, decade: decade, keywords:12564})
-      movieApiCallList.push({genreName:"horrorComedy", genreNumber: "27,35", decade: decade})
-      movieApiCallList.push({genreName:"sci-fi", genreNumber: "27,878", decade: decade})
-      movieApiCallList.push({genreName:"slasher", genreNumber: 27, decade: decade, keywords: 12339})
-      movieApiCallList.push({genreName:"zombie", genreNumber: 27, decade: decade, keywords: 12377})
-      movieApiCallList.push({genreName:"creature", genreNumber: 27, decade: decade, keywords: 13031})
-      movieApiCallList.push({genreName:"cannibal", genreNumber: 27, decade: decade, keywords: 14895})
-      movieApiCallList.push({genreName:"vampire", genreNumber: 27, decade: decade, keywords: 3133})
-      setApiCallList(movieApiCallList);
-      setCategoryMoviesList([]);
+    const movieApiCallList = getMovieApiCallList(decade);
+    setApiCallList(movieApiCallList);
+    setCategoryMoviesList([]);
     }
-  },[decade]);
+  }, [decade]);
 
   // this fetches movies and adds them to categoryMoviesList
   useEffect(() => {
-    console.log('fetchData')
-    const fetchData = async () => {
-      console.log("Fetching main categories");
-      try {
-        for (let i = 0; i <= apiCallList.length; i++) {
-          const response = await fetch(
-            "https://horror-movie-app-server-f55a090ce3b2.herokuapp.com/discover",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(apiCallList[i]),
-            }
-          );
-          const data = await response.json();
-          setCategoryMoviesList((prevList) => [...prevList, data]);
-        }
-      } catch (error) {
-        console.log("Error fetching data:", error);
-      }
-    };
-
-    if(apiCallList !== null){
+        const streamingProviderIds = streamingService?.map((service) => service.providerId);
+        const fetchData = async () => {
+          if (apiCallList !== undefined && apiCallList?.length > 0 ){
+            console.log("fetching default movie data");
+              try {
+                  const data = await fetchMovieByStreamingServiceData(apiCallList, streamingProviderIds);
+                  setCategoryMoviesList(data);
+              } catch (error) {
+                  console.log("Error fetching data:", error);
+              }
+          }
+        };
       fetchData();
-    }
-  
-  }, [apiCallList]);
+  }, [apiCallList, streamingService]);
 
   // this creates (genreList) checks to see if it contains (5) or more movies then is sent to (Navbar)
   useEffect(() => {
-    if (categoryMoviesList !== undefined && categoryMoviesList !== null) {
-      let genreList = [];
-      for (let index = 0; index < categoryMoviesList.length; index++) {
-        if (
-          categoryMoviesList[index].movieList.length > 5 &&
-          categoryMoviesList[index].genreName !== undefined
-        ) {
-          genreList.push(categoryMoviesList[index]);
-        }
-      }
-      getMovieObjects(genreList);
-    }
+    getMovieObjects(checkCategoryMoviesListLength(categoryMoviesList));
   }, [categoryMoviesList]);
 
   // the following code has to do with fetching user querys
   useEffect(() => {
+    if(userInput !== undefined && userInput !== null && userInput !== ""){
     const fetchData = async () => {
-      console.log("Fetching user movie request");
-      try {
-        const response = await fetch(
-          "https://horror-movie-app-server-f55a090ce3b2.herokuapp.com/userquery",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ query: userInput }),
+      if (userInput !== undefined && userInput !== null) {
+          try {
+              const data = await fetchUserInputData(userInput);
+              setUserInputMovies(data);
+          } catch (error) {
+              console.log("Error fetching data:", error);
           }
-        );
-        const data = await response.json();
-        setUserinputMovies(data);
-      } catch (error) {
-        console.log("Error fetching data:", error);
       }
     };
-    if (userInput !== undefined && userInput !== null) {
-      if (userInput !== "") {
-        fetchData();
-      }
-    }
+    fetchData();
+  }
   }, [userInput]);
 
   //this sets the value the user has typed
@@ -121,6 +79,8 @@ export default function TestingServer({getMovieObjects,searchObj, userInputValue
     }
   }, [userInputMoviesList]);
 
+
+
   return (
     <>
       <DisplayMovies
@@ -129,4 +89,64 @@ export default function TestingServer({getMovieObjects,searchObj, userInputValue
       />
     </>
   );
+
+
+  function checkCategoryMoviesListLength(categoryMoviesList){
+    if (categoryMoviesList !== undefined && categoryMoviesList !== null) {
+      let genreList = [];
+      for (let index = 0; index < categoryMoviesList?.length; index++) {
+        if (
+          categoryMoviesList[index]?.movieList?.length > 5 &&
+          categoryMoviesList[index]?.genreName !== undefined
+        ) {
+          genreList.push(categoryMoviesList[index]);
+        }
+      }
+      return genreList;
+    }
+  }
+  async function fetchUserInputData(userInput) {
+    console.log("Fetching user movie request");
+    try {
+      const response = await fetch(
+        "https://horror-movie-app-server-f55a090ce3b2.herokuapp.com/userquery",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ query: userInput }),
+        }
+      );
+      return await response.json();
+    } catch (error) {
+      console.log("Error fetching data:", error);
+      return null;
+    }
+  };
+
+  //TODO  see if you can get this to work and also clean up the code?
+  async function fetchMovieByStreamingServiceData(apiCallList, streamingService){
+    let categoryMoviesList = [];
+    try {
+        for (let i = 0; i < apiCallList.length; i++) {
+            const response = await fetch(
+              "https://horror-movie-app-server-f55a090ce3b2.herokuapp.com/discover",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({query: apiCallList[i], provider: streamingService}),
+                }
+            );
+            const data = await response.json();
+            categoryMoviesList = [...categoryMoviesList, data];
+        }
+    } catch (error) {
+        console.log("Error fetching data:", error);
+        return null;
+    }
+    return categoryMoviesList;
+  };
 }
