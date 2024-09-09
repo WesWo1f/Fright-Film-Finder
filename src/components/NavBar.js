@@ -6,8 +6,13 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import SearchPopup from "./SearchPopup";
 import '../styles/navBar.css'
+import Button from "react-bootstrap/Button";
 import FetchMovies from "./FetchMovies";
-import SignUp from "./SignUp"
+import NetflixIcon from '../logos/netflix-icon.jpg';
+import HBOMaxIcon from '../logos/HBO-Max-icon.jpg';
+import HuluIcon from '../logos/hulu-icon.jpg';
+import AmazonPrimeVideoIcon from '../logos/Amazon-Prime-Video.jpg';
+
 
 // A custom hook to get the current decade and generate an array of decades
 const useDecades = () => {
@@ -27,9 +32,15 @@ function NavBar() {
   const [userMovies, setUserMovies] = useState()
   const [genresList, setGenresList] = useState([])
   const [selectedGenre, setSelectedGenre] = useState()
-  const [showGenres, setShowGenres] = useState()
-   // An array of decades to display in the dropdown
-   const decades = useDecades();
+  const [streamingServiceAndProviderIds, setStreamingServiceAndProviderIds] = useState([]);
+  const decades = useDecades();
+
+  const streamingServices = [
+    { name: 'Netflix', providerId: '8', icon: NetflixIcon },
+    { name: 'HBO', providerId: '1899', icon: HBOMaxIcon },
+    { name: 'Hulu', providerId: '15', icon: HuluIcon },
+    { name: 'Amazon Prime', providerId: '9', icon: AmazonPrimeVideoIcon }
+  ];
 
   useEffect(() => {
     if(decade === null || decade === undefined){
@@ -38,9 +49,10 @@ function NavBar() {
     setSearchObj({
       genre: selectedGenre,
       decade: decade,
-      query: sharedValue
+      query: sharedValue,
+      providerIds: streamingServiceAndProviderIds
   });
-  }, [decade, sharedValue, selectedGenre])
+  }, [decade, sharedValue, selectedGenre, streamingServiceAndProviderIds]);
 
   const handleGenreSelect = (value) => () => {
     setSelectedGenre(value)
@@ -85,6 +97,16 @@ function NavBar() {
     setUserMovies(e.movieList)
   }
 
+  
+
+  const handleStreamingServiceSelect = (service) => () => {
+    if(streamingServiceAndProviderIds.some(s => s.providerId === service.providerId)){
+      setStreamingServiceAndProviderIds(streamingServiceAndProviderIds.filter(s => s.providerId !== service.providerId))
+    } else {
+      setStreamingServiceAndProviderIds([...streamingServiceAndProviderIds, service])
+    }
+  };
+
   return (
     <>
         <Navbar expand="lg">
@@ -101,6 +123,19 @@ function NavBar() {
                 placeholder="Search For Movies"
               />
           </form>
+          <NavDropdown title={"Streaming Services"} id="streaming-services-dropdown">
+                  {streamingServices.map((service) => (
+                    <Button
+                      key={service.name}
+                      onClick={handleStreamingServiceSelect(service)}
+                      variant={streamingServiceAndProviderIds.some(s => s.providerId === service.providerId) ? "primary" : "outline-primary"}
+                      style={{ display: 'flex', alignItems: 'center', margin: '5px' }}
+                    >
+                      <img src={service.icon} alt={service.name} style={{ width: '20px', marginRight: '10px' }} />
+                      {service.name}
+                    </Button>
+                  ))}
+              </NavDropdown>
             <NavDropdown title={"Genre"} id="genre-dropdown">
             {genresList.length > 0 ? (
                genresList.map((g) => (
@@ -131,6 +166,7 @@ function NavBar() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+      
       <FetchMovies searchObj={searchObj} getMovieObjects={handleMovieObjects} userInputValue={sharedValue} getUserMovieList={handleUserMovies}/>
 
       {sharedValue && showSearchPopup && <SearchPopup value={sharedValue} onChange={handleInputChange} onClose={handleSearchPopupClose} movieList={userMovies} />}

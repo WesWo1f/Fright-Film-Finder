@@ -29,6 +29,13 @@
     font-size: 35px;
     padding-left: 25px;
 }
+#streaming-services-dropdown {
+    color: black;
+    font-family: 'Staatliches';
+    font-weight: 500;
+    font-size: 35px;
+    padding-left: 25px;
+}
 
 .search-box {
     align-self: center !important;
@@ -58,6 +65,9 @@
         font-size: 25px;
     }
     #decade-dropdown {
+        font-size: 25px;
+    }
+    #streaming-services-dropdown {
         font-size: 25px;
     }
   } 
