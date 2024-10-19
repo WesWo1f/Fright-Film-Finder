@@ -1,55 +1,53 @@
-import React from 'react'
-import { useEffect } from 'react'
-import { useState } from 'react'
+import React,{ useEffect, useState } from 'react'
 import '../styles/searchPopup.css'
 import MoviePopover from './MoviePopovers'
 
-export default function SearchPopup({value, onChange, movieList, onClose}) {
-
+export default function SearchPopup({combinedSearchValue, getSearchInput, userMovieList}) {
   const [filteredList, setFilteredList] = useState()
-  const [displayPopup, setDisplayPopup] = useState(false)
-
-  const handleChange = (event) => {
-    onChange(event.target.value);
-  };
-
+  
+  const handleCloseButton = () => {
+    getSearchInput('')
+  }
+  const handleChange = (e) => {
+    getSearchInput(e.target.value);
+  }
   
   useEffect(() => {
-    if(movieList !== undefined && movieList !== null){
-      movieList = movieList.filter(movie => movie.original_language === 'en' && movie.poster_path !== null)
-      setFilteredList(movieList)
-      setDisplayPopup(true)
+    if(userMovieList?.length > 0){
+      let filteredUserMovieList = userMovieList.filter(movie => movie.original_language === 'en' && movie.poster_path !== null)
+      setFilteredList(filteredUserMovieList)
     }
-    else{
-      setDisplayPopup(false)
-    }
-  },[movieList])
+  },[userMovieList])
 
+  if(combinedSearchValue?.length > 0){
     return (
-        <>
-          <div className='search-popup-container'>
-            <div>
+      <>
+        <div className='search-popup-container'>
+          <div>
             <input
               className='searchBoxQuery' 
               type="text"
-              value={value}
+              value={combinedSearchValue}
               onChange={handleChange}
-              placeholder="Child Component"
+              placeholder="Search For Movies"
             />
-            <button className='search-close-button' onClick={onClose}>Close</button>
-            </div>
-            <ul className='search-popup-movies'> 
-              {displayPopup &&
-                filteredList.map(function(movie) {
-                  return (
-                    <li key={movie.id}>
-                      <MoviePopover props={movie} moviePoster={movie.poster_path} />
-                    </li>
-                  );
-                })
-                }
-            </ul> 
+            <button className='search-close-button' onClick={handleCloseButton}>Close</button>
           </div>
-        </>
-      )
+          <ul className='search-popup-movies'> 
+            {filteredList?.map(function(movie) {
+                return (
+                  <li key={movie.id}>
+                    <MoviePopover props={movie} moviePoster={movie.poster_path} />
+                  </li>
+                );
+              })
+              }
+          </ul> 
+        </div>
+      </>
+    )
+  }
+  else{
+    <></>
+  }
 }
