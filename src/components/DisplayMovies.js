@@ -17,7 +17,6 @@ function DisplayMovies({movieObjects, searchObj}) {
     setSelectedGenre(searchObj.genre)
   },[movieObjects, searchObj]);
 
-
   useEffect(()=>{
     if(seletedGenre !== undefined){
       scrollToGenre(seletedGenre.name)

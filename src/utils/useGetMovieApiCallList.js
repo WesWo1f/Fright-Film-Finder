@@ -2,7 +2,7 @@ function getMovieApiCallList(decade) {
 
   let newApiCallList = [];
 
-  if(decade !== undefined && decade !== null){
+  if(decade ?? false){
     newApiCallList = [
       { genreName: "alien", genreNumber: 27, decade: decade, keywords: 9951 },
       { genreName: "post-apocalyptic", genreNumber: 27, decade: decade, keywords: "285366|4458" },
