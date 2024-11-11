@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from "axios";
 import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
@@ -9,7 +8,7 @@ import '../styles/watchProviders.css'
 export default function WatchProviders(props) {
     const [movieId, setMovieId] = useState()
     const [movieProviders, setMovieProviders] = useState()
-
+    
     useEffect(()=>{
       if(props.movieId !== undefined){
         setMovieId(props.movieId.toString())

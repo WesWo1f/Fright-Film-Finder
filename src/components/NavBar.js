@@ -11,6 +11,7 @@ import StreamingServices from "./StreamingServices";
 import { GenreDropDown } from "./GenreDropDown";
 import { DecadesDropDown } from "./DecadesDropDown";
 
+
 function NavBar(props) {
   const { getUserMovieList, getSearchInput, combinedSearchValue} = props;
   const [decade, setDecade] = useState("All");

@@ -27,7 +27,8 @@ function MoviePopover(movie) {
         <Button style={{padding: 0,border:' none', background:' none'}}>  
         <img
             src={`https://image.tmdb.org/t/p/w500${movie.moviePoster}`}
-            alt={movie.title}/></Button>
+            alt={movie.title}/>
+        </Button>
       </OverlayTrigger>
     </>
   );
