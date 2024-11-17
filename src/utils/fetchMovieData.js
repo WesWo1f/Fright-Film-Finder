@@ -4,7 +4,7 @@ export default async function fetchMovieData (query, endPoint, streamingService)
       console.log(`Fetching ${endPoint} data`);
       try {
         const response = await fetch(
-          `http://localhost:8000/${endPoint}`,
+          `https://horror-movie-app-server-f55a090ce3b2.herokuapp.com/${endPoint}`,
           {
             method: "POST",
             headers: {
