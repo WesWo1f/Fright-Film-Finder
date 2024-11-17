@@ -25,13 +25,13 @@
 .popover-header {
     background-color: #ab0c0c !important;
     font-weight: 600;
-    color: black !important;
+    color: white !important;
     font-size: 20px !important;
     text-align: center;
 } 
 .movie-overview {
-    font-weight: 500; 
-                        /* color: white; */
+    /* font-weight: 500;  */
+    font: 1.2em sans-serif;
     color: black;
     margin-bottom: -20px;
 }

@@ -2,13 +2,13 @@ import React from "react";
 import { useEffect, useState } from "react";
 import DisplayMovies from "./DisplayMovies";
 import getMovieApiCallList from '../utils/useGetMovieApiCallList';
+import fetchMovieData from "../utils/fetchMovieData";
 
 export default function FetchMovies({getMovieObjects, searchObj, getUserMovieList}) {
   const [categoryMoviesList, setCategoryMoviesList] = useState(null);
 
-
   useEffect(() => {
-    if(searchObj.decade === null || searchObj.decade === undefined){
+    if(!searchObj.decade){
       return;
     }
     const streamingProviderIds = searchObj.streamingServicesIds?.map((service) => service.providerId);
@@ -18,11 +18,10 @@ export default function FetchMovies({getMovieObjects, searchObj, getUserMovieLis
         if (movieApiCallList?.length > 0) {
           try {
             const promises = movieApiCallList.map(element => 
-              fetchMovieData(element, "discover", streamingProviderIds)
+                fetchMovieData(element, "discover", streamingProviderIds)
             );
             const data = await Promise.all(promises);
             const filteredMovies = checkCategoryMoviesListLength(data);
-            console.log(filteredMovies);
             setCategoryMoviesList(filteredMovies);
             getMovieObjects(filteredMovies);
           } catch (error) {
@@ -36,7 +35,7 @@ export default function FetchMovies({getMovieObjects, searchObj, getUserMovieLis
 
 
   useEffect(() => {
-    if(searchObj.userSearchBoxInput?.length > 0){
+    if(searchObj?.userSearchBoxInput?.length > 0){
     const fetchData = async () => {
         try {
             const data = await fetchMovieData(searchObj.userSearchBoxInput, "userquery", 0);
@@ -70,26 +69,6 @@ export default function FetchMovies({getMovieObjects, searchObj, getUserMovieLis
         }
       }
       return genreList;
-    }
-  }
-
-  async function fetchMovieData(query, endPoint, streamingService) {
-    console.log("Fetching movie data");
-    try {
-      const response = await fetch(
-        `https://horror-movie-app-server-f55a090ce3b2.herokuapp.com/${endPoint}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ query: query, provider: streamingService }),
-        }
-      );
-      return await response.json();
-    } catch (error) {
-      console.log("Error fetching data:", error);
-      return null;
     }
   }
 }
