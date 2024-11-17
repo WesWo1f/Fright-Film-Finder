@@ -53,13 +53,14 @@ export default function WatchProviders(movieId) {
     return (
       <>
         <OverlayTrigger trigger="click" rootClose={true} placement={"auto"} overlay={providersPopover} >
-          <Button style={{margin: 5}}>{buttonName}</Button>
+          <div className='streaming-button-container'>
+            <Button style={{fontSize: 15}} >{buttonName}</Button>
+          </div>
         </OverlayTrigger>
      </>
     )}
 
      } catch (error) {
-      
      }
     }
     if(!movieProviders?.watchProviders?.US){
@@ -77,6 +78,7 @@ export default function WatchProviders(movieId) {
           <Providers type={"Buy"}  />
           <Providers type={"Rent"} /> 
           <Providers type={"Flatrate"}/>
+          <Providers type={"Free"}/>
         </div>
       </>
     )
