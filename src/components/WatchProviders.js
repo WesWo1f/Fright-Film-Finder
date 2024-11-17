@@ -4,37 +4,21 @@ import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import '../styles/watchProviders.css'
+import fetchMovieData from '../utils/fetchMovieData';
 
-export default function WatchProviders(props) {
-    const [movieId, setMovieId] = useState()
-    const [movieProviders, setMovieProviders] = useState()
-    
-    useEffect(()=>{
-      if(props.movieId !== undefined){
-        setMovieId(props.movieId.toString())
-      }
-    },[props.movieId])  
+export default function WatchProviders(movieId) {
+  const [movieProviders, setMovieProviders] = useState()
 
-    useEffect(()=>{
-      if(movieId !== undefined){
-        async function getDataData(){
-          const options = {
-            method: 'GET',
-            headers: {
-              accept: 'application/json',
-              Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1NTgyNWQyNGM2NGE3MzliYjY3MDczMzViMTY0NWIwYyIsInN1YiI6IjYyMjk1NTg1NmU5MzhhMDAxYjdmMzk1NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ZtWnnkzKSdFDGzIYVuDStj_FjXkosLXM0E0ynDxM8vk'
-            }
-          };
-            async function getData(){
-              const response = await  fetch(`https://api.themoviedb.org/3/movie/${movieId}/watch/providers`, options)
-              const data = await response.json();
-              return data
-            }
-            setMovieProviders(await getData())
-        }
-        getDataData()
+  useEffect(() => {
+    async function callFetchMovieData() {
+      if(!movieProviders || movieProviders === undefined){
+        const data = await fetchMovieData(movieId, 'watchproviders');
+        setMovieProviders(data);
       }
-    },[movieId])
+    }
+    callFetchMovieData()
+  },[movieProviders, movieId])
+
 
   if(movieProviders !== undefined){
     function Providers(props){
@@ -44,8 +28,8 @@ export default function WatchProviders(props) {
         buttonName = 'Stream'
       }
      try {
-      if(movieProviders?.results?.US?.[platformType]?.length > 0){
-       const providersArray = movieProviders?.results?.US?.[platformType].map(item => {
+      if(movieProviders?.watchProviders?.US?.[platformType]?.length > 0){
+       const providersArray = movieProviders?.watchProviders?.US?.[platformType].map(item => {
           return item 
         })
         const providersPopover = (
@@ -69,7 +53,7 @@ export default function WatchProviders(props) {
     return (
       <>
         <OverlayTrigger trigger="click" rootClose={true} placement={"auto"} overlay={providersPopover} >
-        <Button style={{margin: 5}}>{buttonName}</Button>
+          <Button style={{margin: 5}}>{buttonName}</Button>
         </OverlayTrigger>
      </>
     )}
@@ -78,7 +62,7 @@ export default function WatchProviders(props) {
       
      }
     }
-    if(!movieProviders?.results?.US){
+    if(!movieProviders?.watchProviders?.US){
       return (
         <>
           <h6>&#8595; Where to watch &#8595;</h6>
@@ -88,7 +72,7 @@ export default function WatchProviders(props) {
     }
     return (
       <>
-        <h6>&#8595; Where to watch &#8595;</h6>
+        <h6 style={{fontWeight: 'bold'}}>&#8595; Where to watch &#8595;</h6>
         <div className='providers-container'>
           <Providers type={"Buy"}  />
           <Providers type={"Rent"} /> 

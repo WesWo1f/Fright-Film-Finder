@@ -90,7 +90,6 @@ function NavBar(props) {
       </Navbar>
 
       { searchObj.decade ? <FetchMovies searchObj={searchObj} getMovieObjects={handleMovieObjects} getUserMovieList={handleUserMovies}/> : null }
-
     </>
   );
 }

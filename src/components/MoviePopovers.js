@@ -2,6 +2,7 @@ import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import WatchProviders from './WatchProviders';
+import MovieTrailers from './MovieTrailers';
 
 function MoviePopover(movie) {
   function firstFourLetters(string) {
@@ -14,8 +15,9 @@ function MoviePopover(movie) {
       <Popover.Body >
         <div className='movie-overview'>{movie.props.overview}</div><br></br>
         <div className='release-date-and-vote-average'>
-          <strong>Released: </strong>{firstFourLetters(movie.props.release_date)} <strong>Rating: </strong>{ movie.props.vote_average}
+          <strong>Released: {firstFourLetters(movie.props.release_date)}</strong> <strong>Rating: { movie.props.vote_average}</strong>
         </div>
+        <MovieTrailers movieId={movie.props.id} />
         <WatchProviders movieId={movie.props.id} />
       </Popover.Body>
     </Popover>
