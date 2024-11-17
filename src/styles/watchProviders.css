@@ -42,4 +42,12 @@
 .providers-container {
     display: flex;
     justify-content: space-evenly;
+    flex-wrap: nowrap;
+    align-content: stretch;
 } 
+.streaming-button-container{
+    display: flex;
+    justify-content: center;
+    align-content: stretch;
+}
+
