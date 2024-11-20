@@ -2,7 +2,7 @@ function getMovieApiCallList(decade) {
 
   let newApiCallList = [];
 
-  if(decade ?? false){
+  if(decade){
     newApiCallList = [
       { genreName: "alien", genreNumber: 27, decade: decade, keywords: 9951 },
       { genreName: "post-apocalyptic", genreNumber: 27, decade: decade, keywords: "285366|4458" },
@@ -15,8 +15,6 @@ function getMovieApiCallList(decade) {
       { genreName: "cannibal", genreNumber: 27, decade: decade, keywords: 14895 },
       { genreName: "vampire", genreNumber: 27, decade: decade, keywords: 3133 }
     ];
-  }
-  if(newApiCallList?.length > 0){
     return newApiCallList;
   }
   else{

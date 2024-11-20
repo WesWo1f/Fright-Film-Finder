@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import DisplayMovies from "./DisplayMovies";
-import getMovieApiCallList from '../utils/useGetMovieApiCallList';
+import getMovieApiCallList from '../utils/getMovieApiCallList';
 import fetchMovieData from "../utils/fetchMovieData";
 
 export default function FetchMovies({getMovieObjects, searchObj, getUserMovieList}) {
