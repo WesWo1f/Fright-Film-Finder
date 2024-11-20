@@ -1,6 +1,6 @@
 export default async function fetchMovieData (query, endPoint, streamingService) {
 
-    async function movieTrailerCall() {
+    async function fetchDataCall() {
       console.log(`Fetching ${endPoint} data`);
       try {
         const response = await fetch(
@@ -20,5 +20,5 @@ export default async function fetchMovieData (query, endPoint, streamingService)
         return null;
     }
   }
-  return movieTrailerCall().then(data => data).catch(() => null);
+  return fetchDataCall().then(data => data).catch(() => null);
 };
