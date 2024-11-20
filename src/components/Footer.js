@@ -3,7 +3,7 @@ import React from 'react';
 const Footer = () => {
     return (
         <footer style={footerStyle}>
-            <p>Movie Finder App is powered by TMDB and JustWatch.</p>
+            <p>Fright Film Finder is powered by TMDB and JustWatch.</p>
         </footer>
     );
 };
