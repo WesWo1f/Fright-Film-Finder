@@ -8,8 +8,9 @@ import useHandleScreenResize from '../utils/useHandleScreenResize';
 function DisplayMovies({movieObjects, searchObj}) {
   const [myMoviesObject, setMyMoviesObject] = useState();
   const [numberOfMoviesDisplayed, setNumberOfMoviesDisplayed] = useState();
-  const [selectedGenre, setSelectedGenre] = useState()
-  const screenSize = useHandleScreenResize()
+  const [selectedGenre, setSelectedGenre] = useState();
+  const screenSize = useHandleScreenResize();
+  
   useEffect(() => {
       setNumberOfMoviesDisplayed(screenSize)
   }, [ screenSize]);
@@ -63,7 +64,7 @@ function DisplayMovies({movieObjects, searchObj}) {
     const movieList = myMoviesObject[props.index].movieList;
     const result = genreName.replace(/([A-Z])/g, " $1");
     let categoryTitle = result.charAt(0).toUpperCase() + result.slice(1);
-    categoryTitle = categoryTitle.replace(/\-[a-z]/g, match => match.toUpperCase())
+    categoryTitle = categoryTitle.replace(/-[a-z]/g, match => match.toUpperCase())
     if(movieList?.length > 5){
       return (
         <>
