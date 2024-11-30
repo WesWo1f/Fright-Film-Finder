@@ -1,33 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import fetchMovieData from '../utils/fetchMovieData';
 
-function MovieTrailers(movieId) {
-    const [youtubeUrl, setYoutubeUrl] = useState('');
-    const [movieTrailersData, setMovieTrailersData] = useState(null);
-
+function MovieTrailers({movieData}) {
+    const [youtubeUrl, setYoutubeUrl] = useState(null);
     useEffect(() => {
-        async function callFetchMovieData() {
-            if(!movieTrailersData || movieTrailersData === undefined) {
-                setMovieTrailersData(await fetchMovieData(movieId, 'trailer'));
-            }
+        const movieTrailersData = movieData?.popoverData?.videos?.results?.find(trailer => trailer.type === "Trailer");
+
+        if(movieTrailersData?.key !== undefined && movieTrailersData?.key !== null){
+            setYoutubeUrl(`https://www.youtube.com/watch?v=${movieTrailersData.key}`);
         }
-        async function movieTrailerCall() {
-            if (movieTrailersData?.trailerData?.length > 0) {
-                const trailer = movieTrailersData.trailerData.find(trailer => trailer.type === "Trailer");
-                if (trailer) {
-                    const url = `https://www.youtube.com/watch?v=${trailer.key}`;
-                    setYoutubeUrl(url);
-                } else {
-                    console.log('No trailer found');
-                }
-            }
-        }
-        if(movieTrailersData) {
-            movieTrailerCall();
-        }
-        callFetchMovieData();
-    }, [movieId, movieTrailersData]);
+
+    }, [movieData]);
 
     const handleButtonClick = () => {
         if (youtubeUrl) {
@@ -38,15 +21,16 @@ function MovieTrailers(movieId) {
     };
 
     return (
-        <div>
-            <ButtonStyle onClick={handleButtonClick} disabled={!youtubeUrl}>
+       <div>
+          { youtubeUrl ? <ButtonStyle onClick={handleButtonClick} disabled={!youtubeUrl}>
                 Play Trailer
-            </ButtonStyle>
+            </ButtonStyle> : "No Trailer Available" }
         </div>
     );
 }
 
 const ButtonStyle = styled.button`
+    padding: 4px 12px 4px 12px;
     margin-top: 8px;
     margin-bottom: 8px;
     color: white;
